@@ -52,5 +52,5 @@ test:
 production:
   <<: *default
   database: soccor_scoring_production
-  username: adffdadf2341
+  username: "adffdadf2341"
   password: <%= ENV['SOCCOR_SCORING_DATABASE_PASSWORD'] %>
