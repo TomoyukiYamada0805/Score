@@ -1,0 +1,2 @@
+class RefereeEvaluation < ApplicationRecord
+end

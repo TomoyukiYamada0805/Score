@@ -1,0 +1,2 @@
+class MatchProgress < ApplicationRecord
+end

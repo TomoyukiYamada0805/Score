@@ -1,0 +1,23 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user-info-area {
+    display: flex;
+
+    .user-image-area {
+
+        img {
+          border-radius: 5px;
+        }
+    }
+}
+
+.user-information-analysis {
+    display: flex;
+
+    .post-teams-analysis {
+        width: 700px !important;
+        height: 350px !important;
+    }
+}

@@ -1,0 +1,78 @@
+- @evaluate_json = @evaluate.to_json.html_safe
+.user-info-area
+  .user-image-area
+    %img{:src => "#{@user.avatar.versions[:thumb]}"}/
+  %div
+    %p Tomoyuki_Yamada
+    %p
+      %span
+        フォロー
+      %span
+        100
+      %span
+        フォロワー
+      %span
+        10000
+    %p
+      %span
+        %i.far.fa-heart
+      %span
+        川崎フロンターレ
+      
+  %div
+    %i.fas.fa-cog
+
+.user-information-analysis
+  %canvas.post-teams-analysis
+  .post-player-analysis
+    %p.post-player-title
+      採点ランキング
+    %p
+      %span 1
+      %span 中村 憲剛
+      %span 4.6
+    %p
+      %span 2
+      %span 大島 僚太
+      %span 4.5
+    %p
+      %span 3
+      %span 家長 昭博
+      %span 4.３
+
+.post-info-box
+  %img.user-profile-image{:src => "/assets/icon1.png"}/
+  .post-info-text
+    .post-title J1 第5節 松本山雅FC vs 川崎フロンターレ
+    .post-info 
+      %span by Tomoyuki_Yamada
+      %span 2019年4月1日
+      %span
+        %i.far.fa-heart
+        41
+
+%script
+:javascript
+  console.log(#{@evaluate_json}[0].team_name)
+  var ctx = document.getElementsByClassName("post-teams-analysis");
+  var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: [#{@evaluate_json}[0].team_name, #{@evaluate_json}[1].team_name, "", ""],
+      datasets: [{
+          backgroundColor: [
+              #{@evaluate_json}[0].team_color,
+              #{@evaluate_json}[1].team_color,
+              "#58A27C",
+              "#3C00FF"
+          ],
+          data: [#{@evaluate_json}[0].count, #{@evaluate_json}[1].count, , ]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: '採点チーム 割合'
+      }
+    }
+  });

@@ -1,0 +1,356 @@
+#main_title
+  #match_title
+    %h4
+      J1リーグ 第#{@match.section}節
+    %p
+      = @match.match_date
+  
+  #team_title
+    #home_team
+      %p 
+        = @homeTeamInfo.team_name
+    #score
+      #home_score
+        %p
+          = @homeTeamInfo.first_point.to_i + @homeTeamInfo.second_point.to_i
+      #match_result
+        %div
+          #first_point
+            %span 
+              = @homeTeamInfo.first_point
+            %span 前半
+            %span 
+              = @awayTeamInfo.first_point
+          #second_point
+            %span 
+              = @homeTeamInfo.second_point
+            %span 後半
+            %span
+              = @awayTeamInfo.second_point
+      #away_score
+        %p
+          = @awayTeamInfo.first_point.to_i + @awayTeamInfo.second_point.to_i
+    #away_team
+      %a{:href => "javascript:void(0)"} 
+        %p 
+          = @awayTeamInfo.team_name
+
+= f.submit "登録"
+
+#team_name_info
+  .home-member-list.member-list-style
+    %ul
+      %li.away-team-name.team-name-style{:style => "border-left-color: #{@homeTeamInfo.team_color};"}
+        %span.team-name.editable 
+          = @homeTeamInfo.team_name
+    
+  .away-member-list.member-list-style
+    %ul
+      %li.away-team-name.team-name-style{:style => "border-left-color: #{@awayTeamInfo.team_color};"}
+        %span.team-name.editable
+          = @awayTeamInfo.team_name
+
+.list-title 
+  %span.list-title-style 監督
+
+#coach_name_info
+  .home-member-list.member-list-style
+    %ul
+      %li
+        %span.position 監督
+        %span.profile-number
+        %span.player-name.editable
+          = @homeTeamCoach.player_name
+        %span.change-time
+        %span.player-score
+          = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(@homeTeamCoach.evaluate_point)
+          = f.hidden_field "evaluate[][coach_name]", :value => "#{@homeTeamCoach.player_name}"
+        　　
+  .away-member-list.member-list-style
+    %ul
+      %li
+        %span.position 監督
+        %span.profile-number
+        %span.player-name.editable
+          = @awayTeamCoach.player_name
+        %span.change-time
+        %span.player-score
+          = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(@awayTeamCoach.evaluate_point)
+          = f.hidden_field "evaluate[][coach_name]", :value => "#{@awayTeamCoach.player_name}"
+
+.list-title 
+  %span.list-title-style スターティングメンバー
+
+#starting_member
+  .home-member-list.member-list-style
+    %ul
+      - @homeTeamPlayer.each do |player|
+        %li.home-member-name 
+          %span.position 
+            = player.position
+          %span.profile-number 
+            = player.profile_number
+          %span.player-name.editable 
+            = player.player_name
+          %span.change-time 
+            = player.player_change
+          %span.player-score 
+            = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(player.evaluate_point)
+            = f.hidden_field "evaluate[][player_id]", :value => "#{player.player_id}"
+    
+  .away-member-list.member-list-style
+    %ul 
+      - @awayTeamPlayer.each do |player|
+        %li.home-member-name 
+          %span.position 
+            = player.position
+          %span.profile-number 
+            = player.profile_number
+          %span.player-name.editable 
+            = player.player_name
+          %span.change-time 
+            = player.player_change
+          %span.player-score
+            = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(player.evaluate_point)
+            = f.hidden_field "evaluate[][player_id]", :value => "#{player.player_id}"
+.list-title 
+  %span.list-title-style 控えメンバー
+
+#substitute_member
+  .away-member-list.member-list-style
+    %ul
+      - @homeTeamSubPlayer.each do |player|
+        %li.home-member-name 
+          %span.position 
+            = player.position
+          %span.profile-number 
+            = player.profile_number
+          %span.player-name.editable 
+            = player.player_name
+          %span.change-time 
+            = player.player_change
+          - if player.player_change.present?
+            %span.player-score
+              = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(player.evaluate_point)
+              = f.hidden_field "evaluate[][player_id]", :value => "#{player.player_id}"
+    
+  .away-member-list.member-list-style
+    %ul 
+      - @awayTeamSubPlayer.each do |player|
+        %li.home-member-name 
+          %span.position 
+            = player.position
+          %span.profile-number 
+            = player.profile_number
+          %span.player-name.editable 
+            = player.player_name
+          %span.change-time 
+            = player.player_change
+          - if player.player_change.present?
+            %span.player-score
+              = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(player.evaluate_point)
+              = f.hidden_field "evaluate[][player_id]", :value => "#{player.player_id}"
+      
+.list-title 
+  %span.list-title-style 審判
+
+#referee_member
+  .referee-list.member-list-style
+    %ul
+      %li.home-member-name 
+        %span.position 主審
+        %span.player-name
+          = @chiefReferee.referee_name
+        %span.change-time
+        %span.player-score
+          = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(@chiefReferee.evaluate_point)
+          = f.hidden_field "evaluate[][referee_name]", :value => "#{@chiefReferee.referee_name}"
+
+      %li.home-member-name 
+        %span.position 副審
+        %span.player-name
+          = @assistantReferee[0].referee_name
+        %span.change-time 
+        %span.player-score
+          = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(@assistantReferee[0].evaluate_point)
+          = f.hidden_field "evaluate[][referee_name]", :value => "#{@assistantReferee[0].referee_name}"
+      %li.home-member-name 
+        %span.position 副審
+        %span.player-name
+          = @assistantReferee[1].referee_name
+        %span.change-time 
+        %span.player-score
+          = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(@assistantReferee[1].evaluate_point)
+          = f.hidden_field "evaluate[][referee_name]", :value => "#{@assistantReferee[1].referee_name}"
+
+.list-title 
+  %span.list-title-style 総評
+
+#overall
+  .overall-list
+    = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(@homeTeamInfo.evaluate_point)
+    = f.hidden_field "evaluate[][team_id]", :value => "#{@homeTeamInfo.team_id}"
+    = f.text_area "evaluate[][comment]", :value => @homeTeamInfo.evaluate_comment
+
+  .overall-list
+    = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(@awayTeamInfo.evaluate_point)
+    = f.hidden_field "evaluate[][team_id]", :value => "#{@awayTeamInfo.team_id}"
+    = f.text_area "evaluate[][comment]", :value => @awayTeamInfo.evaluate_comment
+
+.list-title 
+  %span.list-title-style 試合詳細
+
+%table#game_progress
+  %tbody
+    - @progress.each do |progress|
+      - if progress.progress_type == 0
+        %tr
+          %td.home_details
+            = progress.scorer.present? ? progress.scorer : "オウンゴール" if progress.team_type == 0
+            %span.progress-item
+              - if progress.team_type == 0
+                %i.far.fa-futbol
+          %th 
+            = progress.progress_time
+            分
+          %td.away_details
+            %span.progress-item
+              - if progress.team_type == 1
+                %i.far.fa-futbol
+            = progress.scorer.present? ? progress.scorer : "オウンゴール" if progress.team_type == 1
+
+      - elsif progress.progress_type == 1
+        %tr
+          %td.home_details
+            = progress.yellow_card if progress.team_type == 0
+            %span.progress-item
+              - if progress.team_type == 0
+                %i.fas.fa-square.yellow
+          %th 
+            = progress.progress_time
+            分
+          %td.away_details
+            %span.progress-item
+              - if progress.team_type == 1
+                %i.fas.fa-square.yellow
+            = progress.yellow_card if progress.team_type == 1
+
+      - elsif progress.progress_type == 2
+        %tr
+          %td.home_details
+            = progress.red_card if progress.team_type == 0
+            %span.progress-item
+              - if progress.team_type == 0
+                %i.fas.fa-square.red
+          %th 
+            = progress.progress_time
+            分
+          %td.away_details
+            %span.progress-item
+              - if progress.team_type == 1
+                %i.fas.fa-square.red
+            = progress.red_card if progress.team_type == 1
+
+      - elsif progress.progress_type == 3
+        %tr
+          %td.home_details
+            = progress.red_card if progress.team_type == 0
+            %span.progress-item
+              - if progress.team_type == 0
+                %i.fas.fa-square.red
+          %th 
+            = progress.progress_time
+            分
+          %td.away_details
+            %span.progress-item
+              - if progress.team_type == 1
+                %i.fas.fa-square.red
+            = progress.red_card if progress.team_type == 1
+      
+      - elsif progress.progress_type == 4
+        %tr
+          %td.home_details
+            - if progress.team_type == 0
+              = progress.from_change_player
+            %span.progress-item
+              - if progress.team_type == 0
+                %i.fas.fa-caret-right
+            - if progress.team_type == 0
+              = progress.to_change_player
+          %th 
+            = progress.progress_time
+            分
+          %td.away_details
+            - if progress.team_type == 1
+              = progress.from_change_player
+            %span.progress-item
+              - if progress.team_type == 1
+                %i.fas.fa-caret-right
+            - if progress.team_type == 1
+              = progress.to_change_player
+
+%table#game_details
+  %tbody
+    %tr
+      %td.home_details
+        = @homeTeamInfo.control_rate
+      %th ボール支配率
+      %td.away_details
+        = @awayTeamInfo.control_rate
+    %tr
+      %td.home_details
+        = @homeTeamInfo.shoot_count
+      %th シュート
+      %td.away_details
+        = @awayTeamInfo.shoot_count
+    %tr
+      %td.home_details
+        = @homeTeamInfo.frame_count
+      %th 枠内シュート
+      %td.away_details 
+        = @awayTeamInfo.frame_count
+    %tr
+      %td.home_details
+        = @homeTeamInfo.mileage
+      %th 走行距離
+      %td.away_details 
+        = @awayTeamInfo.mileage
+    %tr
+      %td.home_details
+        = @awayTeamInfo.sprint_count
+        杉本 太郎
+      %th スプリント
+      %td.away_details 
+        = @awayTeamInfo.sprint_count
+    %tr
+      %td.home_details
+        = @homeTeamInfo.pass_count
+        (#{@homeTeamInfo.pass_success_rate}%)
+      %th パス（成功率）
+      %td.away_details 
+        = @awayTeamInfo.pass_count
+        (#{@awayTeamInfo.pass_success_rate}%)
+    %tr
+      %td.home_details
+        = @homeTeamInfo.offside
+      %th オフサイド
+      %td.away_details 
+        = @awayTeamInfo.offside
+    %tr
+      %td.home_details
+        = @homeTeamInfo.freekick_count
+      %th フリーキック
+      %td.away_details 
+        = @awayTeamInfo.freekick_count
+    %tr
+      %td.home_details
+        = @homeTeamInfo.cornerkick_count
+      %th コーナーキック
+      %td.away_details 
+        = @awayTeamInfo.cornerkick_count
+    %tr
+      %td.home_details
+        = @homeTeamInfo.penalty_kick
+      %th ペナルティキック
+      %td.away_details 
+        = @awayTeamInfo.penalty_kick

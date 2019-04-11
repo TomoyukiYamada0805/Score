@@ -1,0 +1,179 @@
+// Place all the styles related to the games controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#main_title {
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+#match_title{
+    margin: 0 10px;
+    display: flex;
+    align-items: flex-end;
+
+    h4{
+        margin: 5px 10px 0 20px;
+    }
+
+    p {
+        margin: 0;
+        color: #a9a9a9;
+        font-size: 13px;
+    }
+}
+
+#team_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    
+    p {
+        margin: 10px 0;
+    }
+
+    #score{
+        display: flex;
+
+        #home_score, #away_score{
+            width: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        #match_result{
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+#game_details {
+    text-align: center;
+    opacity: 0.8;
+
+    a{
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        text-decoration: none;
+        padding: 0 3px;
+    }
+}
+
+.editable {
+    cursor: pointer;
+}
+
+.list-title {
+    padding-left: 40px;
+
+    .list-title-style {
+        padding: 3px 10px;
+        display: inline-block;
+        background: #f3f3f3;
+        opacity: 0.8;
+    }
+}
+
+#starting_member, #substitute_member, #referee_member, #team_name_info, #coach_name_info, #overall{
+  display: flex;
+
+  ul {
+    list-style: none;
+
+    li {
+        padding: 5px 0;
+
+        span{
+            margin: 0 5px;
+            display: inline-block;
+            font-size: 14px;
+        }
+    }
+  }
+
+  .member-list-style{
+    width: 500px;
+
+    .home-member-name, .away-member-name {
+        border-bottom: 1px solid #f3f3f3;
+    }
+
+    .team-name-style{
+        padding-left: 10px;
+        border-left: 7px solid #f3f3f3;
+
+        .team-name {
+            font-size: 17px;
+        }
+    }
+
+    .position {
+        width: 28px;
+    }
+
+    .profile-number, .player-score{
+        width: 24px;
+    }
+    
+    .player-name {
+        width: 150px;
+    }
+
+    .change-time {
+        width: 80px;
+        font-size: 11px;
+        color: #a9a9a9;
+    } 
+  }
+
+  .overall-list{
+      width: 500px;
+      padding: 10px 0 10px 40px;
+
+      textarea {
+          width: 450px;
+          height: 80px;
+          resize: none;
+          border-radius: 3px;
+          border-color: #a9a9a9;
+      }
+  }
+}
+
+#game_progress, #game_details{
+    padding-left: 40px;
+    font-size: 14px;
+    
+    .home_details, .away_details {
+      width: 425px;
+    }
+
+    .home_details {
+        text-align: right;
+    }
+
+    .away_details {
+        text-align: left;
+    }
+
+    .progress-item {
+        display: inline-block;
+        width: 25px;
+        text-align: center;
+
+        .fa-square {
+            border: 1px solid #ccc;
+        }
+
+        .yellow {
+            color: 	#FFFF66;
+        }
+
+        .red {
+            color: 	#FF0000;
+        }
+    }
+}

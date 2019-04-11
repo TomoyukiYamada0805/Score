@@ -1,0 +1,38 @@
+!!!
+%html
+  %head
+    %title Score
+    = csrf_meta_tags
+    = csp_meta_tag
+    %link{:href => "https://fonts.googleapis.com/css?family=Noto+Sans+SC|Noto+Sans+JP", :rel => "stylesheet"}/
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  %body
+    %header#site-header
+      .site-header-content
+        %a.top_link{:href => "/tops"}
+          %h1.site-title Score
+
+        - if user_signed_in?
+          / ユーザーがログインしているか調べる
+          .header-button
+            = link_to "Log out", destroy_user_session_path, method: :delete
+        - else
+          .header-button
+            = link_to "Sign in", new_user_session_path, class: 'post'
+            / ログイン画面に移行する
+            = link_to "Sign up", new_user_registration_path, class: 'post'
+            / 新規登録画面に移行する
+    #content
+      #main
+        = yield
+      #side
+        %div ユーザーランキング
+        .user-list-content
+          %span 1
+          %img.user-profile-image{:src => "/assets/icon1.png"}/
+          %span Tomoyuki_Yamada
+          %span
+            %i.far.fa-heart
+            41
