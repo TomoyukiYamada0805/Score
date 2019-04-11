@@ -50,7 +50,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: soccor_scoring_production
-  username: "adffdadf2341"
-  password: <%= ENV['SOCCOR_SCORING_DATABASE_PASSWORD'] %>
+  url: "mysql2://adffdadf2341:adf4234@us-cdbr-east.cleardb.com/heroku_db?reconnect=true"
