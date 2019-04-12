@@ -3,7 +3,7 @@
   .user-image-area
     %img{:src => "#{@user.avatar.versions[:thumb]}"}/
   %div
-    %p Tomoyuki_Yamada
+    %p #{@user.user_name}
     %p
       %span
         フォロー
@@ -40,33 +40,41 @@
       %span 家長 昭博
       %span 4.３
 
-.post-info-box
-  %img.user-profile-image{:src => "/assets/icon1.png"}/
-  .post-info-text
-    .post-title J1 第5節 松本山雅FC vs 川崎フロンターレ
-    .post-info 
-      %span by Tomoyuki_Yamada
-      %span 2019年4月1日
-      %span
-        %i.far.fa-heart
-        41
+- @match.zip(@like_count).each do |match, like|
+  .post-info-box
+    %a{:href => "/users/#{match.uid}"}
+      %img.user-profile-image{:src => "#{image_path(match.user_id, match.avatar)}"}/
+    %a{:href => "/matches/#{match.match_id}/evaluate/#{match.uid}"}
+      .post-info-text
+        .post-title J1 第#{match.section}節 #{match.home_team_name} vs #{match.away_team_name}
+        .post-info 
+          %span by #{match.user_name}
+          %span #{match.updated_at.to_s(:time_format)}
+          %span
+            %i.far.fa-heart
+            #{like}
 
 %script
 :javascript
-  console.log(#{@evaluate_json}[0].team_name)
+  var evaluate = #{@evaluate_json}
+  var team_name  = []
+  var team_color = []
+  var count      = []
+  for (var i = 0; i < evaluate.length; i++) {
+    console.log(evaluate[i]);
+    team_name.push(evaluate[i].team_name)
+    team_color.push(evaluate[i].team_color)
+    count.push(evaluate[i].count)
+  }
+  console.log(evaluate)
   var ctx = document.getElementsByClassName("post-teams-analysis");
   var myPieChart = new Chart(ctx, {
     type: 'pie',
     data: {
-      labels: [#{@evaluate_json}[0].team_name, #{@evaluate_json}[1].team_name, "", ""],
+      labels: team_name,
       datasets: [{
-          backgroundColor: [
-              #{@evaluate_json}[0].team_color,
-              #{@evaluate_json}[1].team_color,
-              "#58A27C",
-              "#3C00FF"
-          ],
-          data: [#{@evaluate_json}[0].count, #{@evaluate_json}[1].count, , ]
+          backgroundColor: team_color,
+          data: count
       }]
     },
     options: {

@@ -28,11 +28,10 @@
       #main
         = yield
       #side
-        %div ユーザーランキング
-        .user-list-content
-          %span 1
-          %img.user-profile-image{:src => "/assets/icon1.png"}/
-          %span Tomoyuki_Yamada
-          %span
-            %i.far.fa-heart
-            41
+        %div 最新の試合
+        - @latest_match.each do |match|
+          %a{:href => "/matches/#{match.match_id}"}
+            .user-list-content
+              %span #{match.home_team_name}
+              %span vs
+              %span #{match.away_team_name}

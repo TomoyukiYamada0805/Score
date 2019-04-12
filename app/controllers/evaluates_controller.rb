@@ -1,7 +1,8 @@
 class EvaluatesController < ApplicationController
     def index
         match_id = params[:match_id]
-        user_id = params[:user_id]
+        user_id  = params[:user_id]
+        @user    = User.where(uid: user_id)[0]
         @match   = Match.where(match_id: match_id)
         @match   = @match[0]
         @team    = MatchInfo.select("*").where(match_id: match_id).left_outer_joins(:team).joins("LEFT OUTER JOIN `evaluate_teams` ON `evaluate_teams`.`team_id` = `match_infos`.`team_id` AND (user_id = #{user_id})")

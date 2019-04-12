@@ -4,6 +4,10 @@
 - else
   = button_to 'いいね', post_likes_path()
 
+%img{:src => "#{@user.avatar.versions[:thumb]}"}/
+= @user.user_name
+= @user.updated_at.to_s(:time_format)
+
 #main_title
   #match_title
     %h4

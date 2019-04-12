@@ -1,12 +1,13 @@
-- @match_content.each do |match|
-  %a{:href => "/matches/#{match['match_id']}/evaluate/#{match['uid']}"}
-    .post-info-box
-      %img.user-profile-image{:src => "/assets/icon1.png"}/
+- @match.zip(@like_count).each do |match, like|
+  .post-info-box
+    %a{:href => "/users/#{match.uid}"}
+      %img.user-profile-image{:src => "#{image_path(match.user_id, match.avatar)}"}/
+    %a{:href => "/matches/#{match.match_id}/evaluate/#{match.uid}"}
       .post-info-text
-        .post-title J1 第#{match["section"]}節 #{match["home_team_name"]} vs #{match["away_team_name"]}
+        .post-title J1 第#{match.section}節 #{match.home_team_name} vs #{match.away_team_name}
         .post-info 
-          %span by #{match["email"]}
-          %span #{match["updated_at"].to_s(:time_format)}
+          %span by #{match.user_name}
+          %span #{match.updated_at.to_s(:time_format)}
           %span
             %i.far.fa-heart
-            41
+            #{like}
