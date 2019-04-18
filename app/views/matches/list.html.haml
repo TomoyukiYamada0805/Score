@@ -1,34 +1,37 @@
-%ul.other-match-nav
-  %li
-    %a{:href => "/match_list/2019/#{@section.to_i-1}"}
-      %i.fas.fa-chevron-left 
-      第#{@section.to_i-1}節
-  %li
-    第#{@section}節
-  %li
-    %a{:href => "/match_list/2019/#{@section.to_i+1}"}
-      第#{@section.to_i+1}節
-      %i.fas.fa-chevron-right
-
-%table
-  %thead
-    %tr
-      %th 日時
-      %th ホーム
-      %th
-      %th アウェイ
-  %tbody
-    - @match.each do |match|
+#main
+  %ul.other-match-nav
+    %li
+      %a{:href => "/match_list/2019/#{@section.to_i-1}"}
+        %i.fas.fa-chevron-left 
+        第#{@section.to_i-1}節
+    %li
+      第#{@section}節
+    %li
+      %a{:href => "/match_list/2019/#{@section.to_i+1}"}
+        第#{@section.to_i+1}節
+        %i.fas.fa-chevron-right
+  
+  %table
+    %thead
       %tr
+        %th.date 日時
+        %th.home-team-name ホーム
         %th
-          %a{:href => "/matches/#{match.match_id}"}
-            = match.match_date
-        %th
-          %a{:href => "/matches/#{match.match_id}"}
-            = match.home_team_name
-        %th
-          %a{:href => "/matches/#{match.match_id}"}
-            vs
-        %th
-          %a{:href => "/matches/#{match.match_id}"}
-            = match.away_team_name
+        %th.away-team-name アウェイ
+    %tbody
+      - @match.each do |match|
+        %tr
+          %th
+            %a{:href => "/matches/#{match.match_id}"}
+              = match.match_date
+          %th
+            %a{:href => "/matches/#{match.match_id}"}
+              = match.home_team_name
+          %th
+            %a{:href => "/matches/#{match.match_id}"}
+              vs
+          %th
+            %a{:href => "/matches/#{match.match_id}"}
+              = match.away_team_name
+
+= render "/layouts/sidebar"

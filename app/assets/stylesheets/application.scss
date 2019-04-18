@@ -15,6 +15,14 @@
  *= require_self
  */
 
+ a {
+   text-decoration: none;
+ }
+
+ a:hover {
+   cursor: pointer; 
+ }
+
  .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -119,16 +127,36 @@ body {
   margin: 0 auto;
   max-width: 1300px;
   display: flex;
+  justify-content: center;
   padding-top: 51px;
 
   #main{
     width: 1000px;
-    padding-left: 30px;
+    //padding-left: 30px;
   }
 
   #side{
     width: 300px;
-    border: 1px solid #f3f3f3;
+    padding: 10px 0 0 10px;
+
+    .latest-match-title{
+      font-weight: bold;
+    } 
+
+    .latest-match-list-content{
+      margin: 10px 0;
+
+      .home-team-name, .away-team-name{
+        width: 60px;
+        display: inline-block;
+        text-align: center;
+      }
+      
+      .center-text {
+        margin: 0 3px;
+      }
+    }
+
   }
 }
 
@@ -170,17 +198,144 @@ body {
          a {
             border: 1px solid #505763;
             border-radius: 5px;
-            color: #505763;
+            color: #fff;
             padding: 3px;
             text-decoration: none;
          }
 
-         a:hover{/*カーソルを当てたとき*/
-            background: rgba(255, 255, 255, 0.3);/*背景を半透明に*/
-        }
+         .post {
+           color: #505763;
+         }
+
       }
+
+    #user_info_area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      a {
+        border: none;
+      }
+
+      .login-user-avatar {
+        height: 40px;
+        width: 40px;
+      }
+    }
   }
+
+  .user_menu {
+    li {
+      padding: 5px;
+      font-size: 16px;
+    }
+  }
+
+  /* リンク ホバー設定 */
+ul a{
+  margin     : 0;
+  padding    : 0;
+  box-sizing : border-box;
+  color      : #444;
+  color           : white;
+  text-decoration : none;
 }
+
+ul li:hover{
+  background : #333;  
+}
+
+
+/* ========================================================== */
+/*   ここから下がメニューの設定                               */
+/* ========================================================== */
+
+/* メニューのON/OFFを保存する為のチェックボックス 非表示 */
+#menuOn{
+  display : none
+}
+
+menu{
+  position    : relative;
+  font-size   : 20px;
+  line-height : 20px;
+  height      : 40px;
+  width       : 100%;
+}
+
+/* 隠しメニューを表示時のメニューの設定 */
+/* absolute指定を行い、高さも与える     */
+#menuOn:checked + menu{
+  z-index   : 20;
+}
+
+/* オーバーレイ                                         */
+/* 隠しメニューが表示されているときに                   */
+/* LightBoxのように画面全体を覆うブロックを表示する     */
+/* これによってメニュー部分を除いて                     */
+/* 画面全体がチェックボックスへのクリックになるので     */
+/* メニュー以外の部分をクリックするとメニューが閉じます */
+#menuOn:checked + menu + div.overlay{
+  position : fixed;
+  top      :  0;
+  bottom   :  0;
+  left     :  0;
+  right    :  0;
+  z-index  : 10;
+  background : rgba(0,0,0,0.5);
+}
+
+#menuOn:checked + menu ul{
+  display: block;
+}
+
+ul{
+  position: absolute;
+  top    : 25px;
+  right  : 0;
+  display: none;
+}
+
+li{
+  list-style-type : none;
+  /* メニュー要素の背景色と合わせる*/
+  background      : black;
+  min-width       :  105px;
+  max-width       :  200px;
+  white-space     : nowrap;
+  text-overflow   : ellipsis;
+}
+
+li a{
+  display       : block;
+  padding       :  10px;
+}
+
+/* ハンバーガーメニュー */
+menu::before {
+  position     : absolute;
+  z-index      : 30;
+  display      : block;
+  content      : '\2261';/* ハンバーガーメニュー*/
+  line-height  : 40px;
+  width        : 20px;
+  color        : black;
+  left        :  5px;
+  top          :  0;
+}
+
+/* メニューを閉じる */
+#menuOn:checked + menu::before {
+  content : '×';/* 閉じるボタン */
+}
+  
+}
+
+body, label, menu, ul, a, input, li, div{
+  //margin     : 0;
+  box-sizing : border-box;
+}
+
 
 @media screen and (max-width: 750px) {
    .site-header {

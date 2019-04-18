@@ -11,10 +11,10 @@ class MatchesController < ApplicationController
         @create_flg = @create_flg[0]
         @match   = Match.where(match_id: match_id)
         @match   = @match[0]
-        @team    = MatchInfo.select("*").where(match_id: match_id).left_outer_joins(:team).joins("LEFT OUTER JOIN `evaluate_teams` ON `evaluate_teams`.`team_id` = `match_infos`.`team_id` AND (user_id = #{current_user.uid})")
-        @player  = MatchPlayer.select("*").where(match_id: match_id).left_outer_joins(:player).joins("LEFT OUTER JOIN `evaluate_players` ON `evaluate_players`.`player_id` = `match_players`.`player_id` AND (user_id = #{current_user.uid})")
-        @coach   = MatchPlayer.select("*").where(match_id: match_id, player_type: 1).joins("LEFT OUTER JOIN `evaluate_coaches` ON `evaluate_coaches`.`coach_name` = `match_players`.`player_name` AND (user_id = #{current_user.uid})")
-        @referee = MatchReferee.select("*").where(match_id: match_id).joins("LEFT OUTER JOIN `evaluate_referees` ON `evaluate_referees`.`referee_name` = `match_referees`.`referee_name` AND (user_id = #{current_user.uid})")
+        @team    = MatchInfo.select("*").where(match_id: match_id).left_outer_joins(:team).joins("LEFT OUTER JOIN `evaluate_teams` ON `evaluate_teams`.`team_id` = `match_infos`.`team_id` AND (user_id = '#{current_user.uid}') AND (evaluate_teams.match_id = #{match_id})")
+        @player  = MatchPlayer.select("*").where(match_id: match_id).left_outer_joins(:player).joins("LEFT OUTER JOIN `evaluate_players` ON `evaluate_players`.`player_id` = `match_players`.`player_id` AND (user_id = '#{current_user.uid}') AND (evaluate_players.match_id = #{match_id})")
+        @coach   = MatchPlayer.select("*").where(match_id: match_id, player_type: 1).joins("LEFT OUTER JOIN `evaluate_coaches` ON `evaluate_coaches`.`coach_name` = `match_players`.`player_name` AND (user_id = '#{current_user.uid}') AND (evaluate_coaches.match_id = #{match_id})")
+        @referee = MatchReferee.select("match_referees.referee_name, match_referees.referee_type, evaluate_point").where(match_id: match_id).joins("LEFT OUTER JOIN `evaluate_referees` ON `evaluate_referees`.`referee_name` = `match_referees`.`referee_name` AND (user_id = '#{current_user.uid}') AND (evaluate_referees.match_id = #{match_id})")
         @progress = MatchProgress.where(match_id: match_id)
 
         @homeTeamInfo = {}
@@ -85,13 +85,13 @@ class MatchesController < ApplicationController
         
         evaluates.each do |evaluate|
           if evaluate[:team_id].present?
-            EvaluateTeam.create(:user_id => current_user.uid, :team_id => evaluate[:team_id], :evaluate_point => evaluate[:point].to_f, :evaluate_comment => evaluate[:comment])
+            EvaluateTeam.create(:user_id => current_user.uid, :match_id => match_id, :team_id => evaluate[:team_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
           elsif evaluate[:coach_name].present?
-            EvaluateCoach.create(:user_id => current_user.uid, :coach_name => evaluate[:coach_name], :evaluate_point => evaluate[:point].to_f )
+            EvaluateCoach.create(:user_id => current_user.uid, :match_id => match_id, :coach_name => evaluate[:coach_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
           elsif evaluate[:player_id].present?
-            EvaluatePlayer.create(:user_id => current_user.uid, :player_id => evaluate[:player_id], :evaluate_point => evaluate[:point].to_f )
+            EvaluatePlayer.create(:user_id => current_user.uid, :match_id => match_id, :player_id => evaluate[:player_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
           elsif evaluate[:referee_name].present?
-            EvaluateReferee.create(:user_id => current_user.uid, :referee_name => evaluate[:referee_name], :evaluate_point => evaluate[:point].to_f )
+            EvaluateReferee.create(:user_id => current_user.uid, :match_id => match_id, :referee_name => evaluate[:referee_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
           end
         end
     end
@@ -105,13 +105,13 @@ class MatchesController < ApplicationController
 
         evaluates.each do |evaluate|
           if evaluate[:team_id].present?
-            EvaluateTeam.where(user_id: current_user.uid, team_id: evaluate[:team_id]).update(:evaluate_point => evaluate[:point].to_f, :evaluate_comment => evaluate[:comment])
+            EvaluateTeam.where(user_id: current_user.uid, team_id: evaluate[:team_id]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
           elsif evaluate[:coach_name].present?
             EvaluateCoach.where(user_id: current_user.uid, coach_name: evaluate[:coach_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil )
           elsif evaluate[:player_id].present?
-            EvaluatePlayer.where(user_id: current_user.uid, player_id: evaluate[:player_id]).update(:evaluate_point => evaluate[:point].to_f )
+            EvaluatePlayer.where(user_id: current_user.uid, player_id: evaluate[:player_id]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
           elsif evaluate[:referee_name].present?
-            EvaluateReferee.where(user_id: current_user.uid, referee_name: evaluate[:referee_name]).update(:evaluate_point => evaluate[:point].to_f )
+            EvaluateReferee.where(user_id: current_user.uid, referee_name: evaluate[:referee_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
           end
         end
     end

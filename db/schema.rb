@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_09_113741) do
+ActiveRecord::Schema.define(version: 2019_04_14_111018) do
 
   create_table "evaluate_coaches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.integer "match_id"
     t.string "coach_name"
     t.float "evaluate_point"
     t.string "evaluate_comment"
@@ -32,6 +33,7 @@ ActiveRecord::Schema.define(version: 2019_04_09_113741) do
 
   create_table "evaluate_players", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.integer "match_id"
     t.integer "player_id"
     t.float "evaluate_point"
     t.string "evaluate_comment"
@@ -42,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_04_09_113741) do
 
   create_table "evaluate_referees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.integer "match_id"
     t.string "referee_name"
     t.float "evaluate_point"
     t.string "evaluate_comment"
@@ -52,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_04_09_113741) do
 
   create_table "evaluate_teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.integer "match_id"
     t.integer "team_id"
     t.float "evaluate_point"
     t.string "evaluate_comment"
@@ -60,7 +64,7 @@ ActiveRecord::Schema.define(version: 2019_04_09_113741) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "post_user_id"
     t.integer "match_id"
     t.bigint "like_user_id"
@@ -188,6 +192,7 @@ ActiveRecord::Schema.define(version: 2019_04_09_113741) do
   create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.integer "team_id"
     t.string "team_name"
+    t.string "short_name"
     t.string "team_color"
     t.integer "del_flg"
     t.datetime "created_at", null: false
@@ -195,7 +200,7 @@ ActiveRecord::Schema.define(version: 2019_04_09_113741) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.string "user_name"
+    t.string "user_name", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

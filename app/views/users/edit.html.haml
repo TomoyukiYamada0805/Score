@@ -1,14 +1,17 @@
-= form_with model: @user, :method => :put do |f|
-  = f.text_field :user_name
-  .circle-avatar
-    - if current_user.persisted? && current_user.avatar?
-      = image_tag current_user.avatar.to_s
-      %label
-        = f.check_box :remove_avatar
-        画像を削除
-    - else
-      = image_tag '/assets/icon1.png'
-      = f.hidden_field :avatar_cache
-    = f.file_field :avatar
+#main
+  = form_with model: @user, :method => :put do |f|
+    = f.text_field :user_name
+    .circle-avatar
+      - if current_user.persisted? && current_user.avatar?
+        = image_tag current_user.avatar.to_s
+        %label
+          = f.check_box :remove_avatar
+          画像を削除
+      - else
+        = image_tag '/assets/icon1.png'
+        = f.hidden_field :avatar_cache
+      = f.file_field :avatar
+  
+    = f.submit '更新'
 
-  = f.submit '更新'
+= render "/layouts/sidebar"

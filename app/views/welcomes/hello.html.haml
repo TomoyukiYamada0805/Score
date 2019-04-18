@@ -1,21 +1,23 @@
-.slider_css
-  %ul
-    %li
-    %li
-    %li
-    %li
-    %li
-    %li
-    #description_area
-      %h1 観戦に新たな視点を見つけよう
-      = link_to "Sign up", new_user_registration_path, class: 'post'
-.cssgrid
-  %div 
-    %i.fas.fa-futbol
-    %p サッカー観戦
-  %div
-    %i.fas.fa-pencil-alt
-    %p 自分の評価を記録
-  %div
-    %i.far.fa-heart
-    %p お気に入りの投稿者を見つける
+#main
+  .slider_css
+    %ul
+      %li
+      %li
+      %li
+      %li
+      %li
+      %li
+      #description_area
+        %h1 観戦に新たな視点を見つけよう
+        - unless user_signed_in?
+          = link_to "Sign up", new_user_registration_path, class: 'post'
+  .cssgrid
+    %div 
+      %i.fas.fa-futbol
+      %p サッカー観戦
+    %div
+      %i.fas.fa-pencil-alt
+      %p 自分の評価を記録
+    %div
+      %i.far.fa-heart
+      %p お気に入りの投稿者を見つける

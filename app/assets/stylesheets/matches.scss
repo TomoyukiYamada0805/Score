@@ -5,4 +5,20 @@
 .other-match-nav {
     display: flex;
     list-style:none;
+
+    li {
+        margin: 0 5px;
+    }
+}
+
+table {
+    .home-team-name, .away-team-name {
+        width: 200px;
+    }
+
+    tbody {
+        tr {
+            height: 40px;
+        }
+    }
 }

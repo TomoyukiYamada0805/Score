@@ -8,6 +8,7 @@ class UsersController < ApplicationController
       @match.each do |match|
         @like_count.push(Like.where(post_user_id: match[:uid], match_id: match[:match_id]).size)
       end
+      @evaluate_ranking = EvaluatePlayer.select("AVG(evaluate_point) as point, evaluate_players.player_id, players.player_name, teams.team_name").where(user_id: user_id).left_outer_joins(:player).left_outer_joins(:team).group("evaluate_players.player_id, players.player_name, `evaluate_players`.`evaluate_point`, teams.team_name").order(evaluate_point: "DESC").limit(3)
     end
 
     def edit

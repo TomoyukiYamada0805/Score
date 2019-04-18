@@ -1,0 +1,10 @@
+#side
+  %div
+    %a{:href => "/match_list/2019/#{@section}"}
+      .latest-match-title 最新の試合
+    - @latest_match.each do |match|
+      %a{:href => "/matches/#{match.match_id}"}
+        .latest-match-list-content
+          %span.home-team-name #{match.home_team_name}
+          %span.center-text vs
+          %span.away-team-name #{match.away_team_name}

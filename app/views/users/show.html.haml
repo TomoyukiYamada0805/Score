@@ -1,86 +1,67 @@
-- @evaluate_json = @evaluate.to_json.html_safe
-.user-info-area
-  .user-image-area
-    %img{:src => "#{@user.avatar.versions[:thumb]}"}/
-  %div
-    %p #{@user.user_name}
-    %p
-      %span
-        フォロー
-      %span
-        100
-      %span
-        フォロワー
-      %span
-        10000
-    %p
-      %span
-        %i.far.fa-heart
-      %span
-        川崎フロンターレ
-      
-  %div
-    %i.fas.fa-cog
-
-.user-information-analysis
-  %canvas.post-teams-analysis
-  .post-player-analysis
-    %p.post-player-title
-      採点ランキング
-    %p
-      %span 1
-      %span 中村 憲剛
-      %span 4.6
-    %p
-      %span 2
-      %span 大島 僚太
-      %span 4.5
-    %p
-      %span 3
-      %span 家長 昭博
-      %span 4.３
-
-- @match.zip(@like_count).each do |match, like|
-  .post-info-box
-    %a{:href => "/users/#{match.uid}"}
-      %img.user-profile-image{:src => "#{image_path(match.user_id, match.avatar)}"}/
-    %a{:href => "/matches/#{match.match_id}/evaluate/#{match.uid}"}
-      .post-info-text
-        .post-title J1 第#{match.section}節 #{match.home_team_name} vs #{match.away_team_name}
-        .post-info 
-          %span by #{match.user_name}
-          %span #{match.updated_at.to_s(:time_format)}
-          %span
-            %i.far.fa-heart
-            #{like}
-
-%script
-:javascript
-  var evaluate = #{@evaluate_json}
-  var team_name  = []
-  var team_color = []
-  var count      = []
-  for (var i = 0; i < evaluate.length; i++) {
-    console.log(evaluate[i]);
-    team_name.push(evaluate[i].team_name)
-    team_color.push(evaluate[i].team_color)
-    count.push(evaluate[i].count)
-  }
-  console.log(evaluate)
-  var ctx = document.getElementsByClassName("post-teams-analysis");
-  var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: team_name,
-      datasets: [{
-          backgroundColor: team_color,
-          data: count
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: '採点チーム 割合'
-      }
+#main
+  - @evaluate_json = @evaluate.to_json.html_safe
+  .user-info-area
+    .user-image-area
+      %img.user-profile-image{:src => "#{@user.avatar.present? ? @user.avatar.versions[:thumb] : "/assets/icon.jpg"}"}/
+    %div
+      %p #{@user.user_name}
+  
+  .user-information-analysis
+    %canvas.post-teams-analysis
+    .post-player-analysis
+      %p.post-player-title
+        採点ランキング
+      - @evaluate_ranking.each_with_index do |evaluate, i|
+        %p
+          %span.rank #{i+1}
+          %span.player-name #{evaluate.player_name}
+          %span.point #{evaluate.point}
+        %p
+          %span.team-name #{evaluate.team_name}
+  
+  - @match.zip(@like_count).each do |match, like|
+    .post-info-box
+      %a{:href => "/users/#{match.uid}"}
+        %img.user-profile-image{:src => "#{image_path(match.avatar, match.user_id)}"}/
+      %a{:href => "/matches/#{match.match_id}/evaluate/#{match.uid}"}
+        .post-info-text
+          .post-title J1 第#{match.section}節 #{match.home_team_name} vs #{match.away_team_name}
+          .post-info 
+            %span by #{match.user_name}
+            %span #{match.updated_at.to_s(:time_format)}
+            %span
+              %i.far.fa-heart
+              #{like}
+  
+  %script
+  :javascript
+    var evaluate = #{@evaluate_json}
+    var team_name  = []
+    var team_color = []
+    var count      = []
+    for (var i = 0; i < evaluate.length; i++) {
+      console.log(evaluate[i]);
+      team_name.push(evaluate[i].team_name)
+      team_color.push(evaluate[i].team_color)
+      count.push(evaluate[i].count)
     }
-  });
+    console.log(evaluate)
+    var ctx = document.getElementsByClassName("post-teams-analysis");
+    var myPieChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: team_name,
+        datasets: [{
+            backgroundColor: team_color,
+            data: count
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: '採点チーム 割合'
+        }
+      }
+    });
+
+= render "/layouts/sidebar"

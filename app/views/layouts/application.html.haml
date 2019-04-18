@@ -7,6 +7,7 @@
     %link{:href => "https://fonts.googleapis.com/css?family=Noto+Sans+SC|Noto+Sans+JP", :rel => "stylesheet"}/
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = analytics_init if Rails.env.production?
 
   %body
     %header#site-header
@@ -15,9 +16,26 @@
           %h1.site-title Score
 
         - if user_signed_in?
-          / ユーザーがログインしているか調べる
+
+          // ユーザーがログインしているか調べる
           .header-button
-            = link_to "Log out", destroy_user_session_path, method: :delete
+            #user_info_area
+              %a{:href => "/users/#{@login_user.uid}"}
+                %img.login-user-avatar{:src => "#{@login_user.avatar.present? ? @login_user.avatar.versions[:thumb] : "/assets/icon.jpg"}"}/
+              %label{:for => "menuOn"}
+                %input#menuOn{:type => "checkbox"}/
+                %menu.user_menu
+                  %ul
+                    %li
+                      %a{:href => "/users/#{current_user.uid}"} マイページ
+                    %li
+                      %a{:href => "/users/edit"} ユーザー情報変更
+                    %li
+                      %a{:href => "/match_list/2019/#{@section}"} 試合一覧
+                    %li
+                      = link_to 'ログアウト', destroy_user_session_path, method: :delete
+                .overlay
+            
         - else
           .header-button
             = link_to "Sign in", new_user_session_path, class: 'post'
@@ -25,13 +43,6 @@
             = link_to "Sign up", new_user_registration_path, class: 'post'
             / 新規登録画面に移行する
     #content
-      #main
-        = yield
-      #side
-        %div 最新の試合
-        - @latest_match.each do |match|
-          %a{:href => "/matches/#{match.match_id}"}
-            .user-list-content
-              %span #{match.home_team_name}
-              %span vs
-              %span #{match.away_team_name}
+      = yield 
+:javascript
+   document.getElementById("menuOn").checked = false

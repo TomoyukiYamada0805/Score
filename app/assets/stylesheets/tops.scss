@@ -4,6 +4,11 @@
 
 .post-info-box {
   display: flex;
+  margin: 5px;
+  border: 1px solid #efefef;
+  border-radius: 3px;
+  background: #fff;
+  padding: 5px;
 
   .user-profile-image {
     height: 50px;
@@ -12,6 +17,7 @@
   }
 
   .post-info-text {
+    padding-left: 10px;
 
     .post-title {
       font-size: 18px;

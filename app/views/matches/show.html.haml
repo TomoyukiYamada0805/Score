@@ -1,6 +1,9 @@
-- if @create_flg.present?
-  = form_with url: match_path, :method => :put do |f|
-    = render "evaluate_area", f: f
-- else
-  = form_with url: matches_path, :method => :post do |f|
-    = render "evaluate_area", f: f
+#main
+  - if @create_flg.present?
+    = form_with url: match_path, :method => :put do |f|
+      = render "evaluate_area", f: f
+  - else
+    = form_with url: matches_path, :method => :post do |f|
+      = render "evaluate_area", f: f
+
+= render "/layouts/sidebar"
