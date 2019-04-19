@@ -391,3 +391,18 @@ body, label, menu, ul, a, input, li, div{
     border-radius: 3px;
   }
 }
+
+.submit-button-area{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 10px 0 0;
+
+  .submit-button {
+    padding: 8px 25px;
+    font-size: 18px;
+    border-style: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+}

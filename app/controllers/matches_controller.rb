@@ -1,7 +1,11 @@
 class MatchesController < ApplicationController
 
     def list
-        @section = params[:section]
+        @section         = params[:section]
+        @latestSection   = Match.maximum("section")
+        @nextSection     = @section.to_i + 1 if @section.to_i + 1 < @latestSection
+        @previousSection = @section.to_i - 1 if @section.to_i - 1 >= 1
+
         @match = Match.select("matches.*, teams.team_name as home_team_name ,away_teams_matches.team_name as away_team_name").where(section: @section).left_outer_joins(:home_team).left_outer_joins(:away_team).order('matches.id')
     end
 
@@ -94,6 +98,7 @@ class MatchesController < ApplicationController
             EvaluateReferee.create(:user_id => current_user.uid, :match_id => match_id, :referee_name => evaluate[:referee_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
           end
         end
+        redirect_to request.referer
     end
 
     def update
@@ -114,6 +119,7 @@ class MatchesController < ApplicationController
             EvaluateReferee.where(user_id: current_user.uid, referee_name: evaluate[:referee_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
           end
         end
+        redirect_to request.referer
     end
 
 end

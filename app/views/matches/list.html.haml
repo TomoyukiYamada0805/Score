@@ -1,15 +1,17 @@
 #main
   %ul.other-match-nav
-    %li
-      %a{:href => "/match_list/2019/#{@section.to_i-1}"}
-        %i.fas.fa-chevron-left 
-        第#{@section.to_i-1}節
+    - if @previousSection.present?
+      %li
+        %a{:href => "/match_list/2019/#{@section.to_i-1}"}
+          %i.fas.fa-chevron-left 
+          第#{@section.to_i-1}節
     %li
       第#{@section}節
-    %li
-      %a{:href => "/match_list/2019/#{@section.to_i+1}"}
-        第#{@section.to_i+1}節
-        %i.fas.fa-chevron-right
+    - if @nextSection.present?
+      %li
+        %a{:href => "/match_list/2019/#{@section.to_i+1}"}
+          第#{@section.to_i+1}節
+          %i.fas.fa-chevron-right
   
   %table
     %thead

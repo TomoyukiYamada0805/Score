@@ -4,6 +4,7 @@ class LikesController < ApplicationController
         match_id = request.referer.split("/")[-3]
         user_id  = request.referer.split("/").last
         create = Like.create!(:post_user_id => user_id, :match_id => match_id, :like_user_id => current_user.uid)
+        redirect_to request.referer
     end
 
     def delete
@@ -12,5 +13,6 @@ class LikesController < ApplicationController
         user_id  = request.referer.split("/").last
         delete_post = Like.where(:post_user_id => user_id, :match_id => match_id, :like_user_id => current_user.uid)
         create = Like.find(delete_post[0].id).destroy
+        redirect_to request.referer
     end
 end

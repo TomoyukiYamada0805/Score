@@ -35,7 +35,8 @@
         %p 
           = @awayTeamInfo.team_name
 
-= f.submit "登録"
+.submit-button-area
+  = f.submit "登録", :class => "submit-button"
 
 #team_name_info
   .home-member-list.member-list-style
@@ -196,6 +197,9 @@
     = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(@awayTeamInfo[:evaluate_point]), :include_blank => true
     = f.hidden_field "evaluate[][team_id]", :value => "#{@awayTeamInfo.team_id}"
     = f.text_area "evaluate[][comment]", :value => @awayTeamInfo["evaluate_comment"]
+
+.submit-button-area
+  = f.submit "登録", :class => "submit-button"
 
 .list-title 
   %span.list-title-style 試合詳細
