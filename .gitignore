@@ -28,4 +28,4 @@
 
 .envrc
 
-public/uploads/
+public/uploads/*
