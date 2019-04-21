@@ -226,3 +226,13 @@
       }
   }
 }
+
+@media screen and (max-width: 750px) {
+    #overall {
+        .overall-list {
+            textarea{
+                width: 165px !important;
+            }
+        }
+    }
+}
