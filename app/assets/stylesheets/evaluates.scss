@@ -86,7 +86,7 @@
 }
 
 #game_details {
-    padding-top: 10px;
+    //padding-top: 10px;
     text-align: center;
 
     a{
@@ -102,7 +102,6 @@
 }
 
 .list-title {
-    padding-left: 40px;
 
     .list-title-style {
         padding: 3px 10px;
@@ -131,6 +130,10 @@
 
   .member-list-style{
     width: 500px;
+
+    ul{
+        padding: 0;
+    }
 
     .home-member-name, .away-member-name {
         border-bottom: 1px solid #f3f3f3;
@@ -168,7 +171,7 @@
 
   .overall-list{
       width: 500px;
-      padding: 10px 0 10px 40px;
+      padding: 10px 0 10px 0;
 
       textarea {
           width: 450px;
@@ -176,45 +179,50 @@
           resize: none;
           border-radius: 3px;
           border-color: #a9a9a9;
+          margin-top: 10px;
       }
   }
 }
+#game_details_area{
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 20px 0 0 0;
 
-#game_progress, #game_details{
-    padding-left: 40px;
-    font-size: 14px;
-
-    th {
-        width: 125px;
-    }
-    
-    .home_details, .away_details {
-      width: 425px;
-    }
-
-    .home_details {
-        text-align: right;
-    }
-
-    .away_details {
-        text-align: left;
-    }
-
-    .progress-item {
-        display: inline-block;
-        width: 25px;
-        text-align: center;
-
-        .fa-square {
-            border: 1px solid #ccc;
-        }
-
-        .yellow {
-            color: 	#FFFF66;
-        }
-
-        .red {
-            color: 	#FF0000;
-        }
-    }
+  #game_progress, #game_details{
+      font-size: 14px;
+  
+      th {
+          width: 125px;
+      }
+      
+      .home_details, .away_details {
+        width: 425px;
+      }
+  
+      .home_details {
+          text-align: right;
+      }
+  
+      .away_details {
+          text-align: left;
+      }
+  
+      .progress-item {
+          display: inline-block;
+          width: 25px;
+          text-align: center;
+  
+          .fa-square {
+              border: 1px solid #ccc;
+          }
+  
+          .yellow {
+              color: 	#FFFF66;
+          }
+  
+          .red {
+              color: 	#FF0000;
+          }
+      }
+  }
 }

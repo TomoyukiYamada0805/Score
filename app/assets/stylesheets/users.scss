@@ -16,6 +16,7 @@
 
 .user-information-analysis {
     display: flex;
+    flex-wrap:wrap;
     padding: 10px 0;
     margin: 10px 0;
 
@@ -50,5 +51,14 @@
         font-size: 14px;
         opacity: 0.7;
         padding-left: 20px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .user-information-analysis {
+        .post-teams-analysis {
+            width: 356px !important;
+            height: 178px !important;
+        }
     }
 }

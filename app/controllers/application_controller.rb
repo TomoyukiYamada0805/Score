@@ -10,12 +10,20 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    root_path
+    if current_user.user_name.present?
+      root_path
+    else
+      edit_user_registration_path
+    end
   end
 
   def latest_match_list
     @section = Match.maximum("section")
     @latest_match = Match.select("matches.*, teams.short_name as home_team_name ,away_teams_matches.short_name as away_team_name").where(section: @section).left_outer_joins(:home_team).left_outer_joins(:away_team).order('matches.id')
+  end
+
+  def registered_user_name?
+      redirect_to "/users/edit"
   end
 
   protected
@@ -29,7 +37,7 @@ class ApplicationController < ActionController::Base
 
   def basic_auth
     authenticate_or_request_with_http_basic do |username, password|
-      username == "kengonakamura" && password == "0363!"
+      username == ENV["BASIC_USER_NAME"] && password == ENV["BASIC_PASSWORD"]
     end
   end
 end

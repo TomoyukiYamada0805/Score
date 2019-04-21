@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :games
   resources :users
   resources :matches
+  get "/about" => "welcomes#index"
   get "/matches/:match_id/evaluate/:user_id" => "evaluates#index"
   get "/match_list/:year/:section" => "matches#list"
   get "/user/info/edit" => "users#edit"

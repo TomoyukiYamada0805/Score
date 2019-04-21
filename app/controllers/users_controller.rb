@@ -2,13 +2,13 @@ class UsersController < ApplicationController
     def show
       user_id = params[:id]
       @user = User.where(uid: user_id)[0]
-      @evaluate = EvaluatePlayer.select("count(*) as count, teams.team_name, teams.team_color").where(user_id: user_id).where("evaluate_point > 0").group("teams.team_name, teams.team_color").left_outer_joins(:player).left_outer_joins(:team)
-      @match = EvaluateMatch.select("matches.*, teams.*, users.id as user_id, users.user_name, users.uid, users.avatar, teams.team_name as home_team_name, away_teams_evaluate_matches.team_name as away_team_name").where(user_id: user_id).left_outer_joins(:match).left_outer_joins(:user).left_outer_joins(:home_team).left_outer_joins(:away_team)
+      @evaluate = EvaluatePlayer.select("count(*) as count, teams.short_name, teams.team_color").where(user_id: user_id).where("evaluate_point > 0").group("teams.short_name, teams.team_color").left_outer_joins(:player).left_outer_joins(:team)
+      @match = EvaluateMatch.select("matches.*, teams.*, users.id as user_id, users.user_name, users.uid, users.avatar, teams.short_name as home_team_name, away_teams_evaluate_matches.short_name as away_team_name").where(user_id: user_id).left_outer_joins(:match).left_outer_joins(:user).left_outer_joins(:home_team).left_outer_joins(:away_team)
       @like_count = []
       @match.each do |match|
         @like_count.push(Like.where(post_user_id: match[:uid], match_id: match[:match_id]).size)
       end
-      @evaluate_ranking = EvaluatePlayer.select("AVG(evaluate_point) as point, evaluate_players.player_id, players.player_name, teams.team_name").where(user_id: user_id).left_outer_joins(:player).left_outer_joins(:team).group("evaluate_players.player_id, players.player_name, `evaluate_players`.`evaluate_point`, teams.team_name").order(evaluate_point: "DESC").limit(3)
+      @evaluate_ranking = EvaluatePlayer.select("AVG(evaluate_point) as point, evaluate_players.player_id, players.player_name, teams.short_name").where(user_id: user_id).where("evaluate_point > 0").left_outer_joins(:player).left_outer_joins(:team).group("evaluate_players.player_id, players.player_name, `evaluate_players`.`evaluate_point`, teams.short_name").order(evaluate_point: "DESC").limit(3)
     end
 
     def edit

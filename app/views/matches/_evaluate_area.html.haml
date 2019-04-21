@@ -8,7 +8,7 @@
   #team_title
     #home_team
       %p 
-        = @homeTeamInfo.team_name
+        = @homeTeamInfo.short_name
     #score
       #home_score
         %p
@@ -33,23 +33,23 @@
     #away_team
       %a{:href => "javascript:void(0)"} 
         %p 
-          = @awayTeamInfo.team_name
+          = @awayTeamInfo.short_name
 
 .submit-button-area
-  = f.submit "登録", :class => "submit-button"
+  = f.submit "登録", :class => "submit-button", :onclick => "doubleStop(this)"
 
 #team_name_info
   .home-member-list.member-list-style
     %ul
       %li.away-team-name.team-name-style{:style => "border-left-color: #{@homeTeamInfo.team_color};"}
         %span.team-name.editable 
-          = @homeTeamInfo.team_name
+          = @homeTeamInfo.short_name
     
   .away-member-list.member-list-style
     %ul
       %li.away-team-name.team-name-style{:style => "border-left-color: #{@awayTeamInfo.team_color};"}
         %span.team-name.editable
-          = @awayTeamInfo.team_name
+          = @awayTeamInfo.short_name
 
 .list-title 
   %span.list-title-style 監督
@@ -199,162 +199,163 @@
     = f.text_area "evaluate[][comment]", :value => @awayTeamInfo["evaluate_comment"]
 
 .submit-button-area
-  = f.submit "登録", :class => "submit-button"
+  = f.submit "登録", :class => "submit-button", :onclick => "doubleStop(this)"
 
 .list-title 
   %span.list-title-style 試合詳細
 
-%table#game_progress
-  %tbody
-    - @progress.each do |progress|
-      - if progress.progress_type == 0
-        %tr
-          %td.home_details
-            = progress.scorer.present? ? progress.scorer : "オウンゴール" if progress.team_type == 0
-            %span.progress-item
+#game_details_area
+  %table#game_progress
+    %tbody
+      - @progress.each do |progress|
+        - if progress.progress_type == 0
+          %tr
+            %td.home_details
+              = progress.scorer.present? ? progress.scorer : "オウンゴール" if progress.team_type == 0
+              %span.progress-item
+                - if progress.team_type == 0
+                  %i.far.fa-futbol
+            %th 
+              = progress.progress_time
+              分
+            %td.away_details
+              %span.progress-item
+                - if progress.team_type == 1
+                  %i.far.fa-futbol
+              = progress.scorer.present? ? progress.scorer : "オウンゴール" if progress.team_type == 1
+  
+        - elsif progress.progress_type == 1
+          %tr
+            %td.home_details
+              = progress.yellow_card if progress.team_type == 0
+              %span.progress-item
+                - if progress.team_type == 0
+                  %i.fas.fa-square.yellow
+            %th 
+              = progress.progress_time
+              分
+            %td.away_details
+              %span.progress-item
+                - if progress.team_type == 1
+                  %i.fas.fa-square.yellow
+              = progress.yellow_card if progress.team_type == 1
+  
+        - elsif progress.progress_type == 2
+          %tr
+            %td.home_details
+              = progress.red_card if progress.team_type == 0
+              %span.progress-item
+                - if progress.team_type == 0
+                  %i.fas.fa-square.red
+            %th 
+              = progress.progress_time
+              分
+            %td.away_details
+              %span.progress-item
+                - if progress.team_type == 1
+                  %i.fas.fa-square.red
+              = progress.red_card if progress.team_type == 1
+  
+        - elsif progress.progress_type == 3
+          %tr
+            %td.home_details
+              = progress.red_card if progress.team_type == 0
+              %span.progress-item
+                - if progress.team_type == 0
+                  %i.fas.fa-square.red
+            %th 
+              = progress.progress_time
+              分
+            %td.away_details
+              %span.progress-item
+                - if progress.team_type == 1
+                  %i.fas.fa-square.red
+              = progress.red_card if progress.team_type == 1
+        
+        - elsif progress.progress_type == 4
+          %tr
+            %td.home_details
               - if progress.team_type == 0
-                %i.far.fa-futbol
-          %th 
-            = progress.progress_time
-            分
-          %td.away_details
-            %span.progress-item
-              - if progress.team_type == 1
-                %i.far.fa-futbol
-            = progress.scorer.present? ? progress.scorer : "オウンゴール" if progress.team_type == 1
-
-      - elsif progress.progress_type == 1
-        %tr
-          %td.home_details
-            = progress.yellow_card if progress.team_type == 0
-            %span.progress-item
+                = progress.from_change_player
+              %span.progress-item
+                - if progress.team_type == 0
+                  %i.fas.fa-caret-right
               - if progress.team_type == 0
-                %i.fas.fa-square.yellow
-          %th 
-            = progress.progress_time
-            分
-          %td.away_details
-            %span.progress-item
+                = progress.to_change_player
+            %th 
+              = progress.progress_time
+              分
+            %td.away_details
               - if progress.team_type == 1
-                %i.fas.fa-square.yellow
-            = progress.yellow_card if progress.team_type == 1
-
-      - elsif progress.progress_type == 2
-        %tr
-          %td.home_details
-            = progress.red_card if progress.team_type == 0
-            %span.progress-item
-              - if progress.team_type == 0
-                %i.fas.fa-square.red
-          %th 
-            = progress.progress_time
-            分
-          %td.away_details
-            %span.progress-item
+                = progress.from_change_player
+              %span.progress-item
+                - if progress.team_type == 1
+                  %i.fas.fa-caret-right
               - if progress.team_type == 1
-                %i.fas.fa-square.red
-            = progress.red_card if progress.team_type == 1
-
-      - elsif progress.progress_type == 3
-        %tr
-          %td.home_details
-            = progress.red_card if progress.team_type == 0
-            %span.progress-item
-              - if progress.team_type == 0
-                %i.fas.fa-square.red
-          %th 
-            = progress.progress_time
-            分
-          %td.away_details
-            %span.progress-item
-              - if progress.team_type == 1
-                %i.fas.fa-square.red
-            = progress.red_card if progress.team_type == 1
-      
-      - elsif progress.progress_type == 4
-        %tr
-          %td.home_details
-            - if progress.team_type == 0
-              = progress.from_change_player
-            %span.progress-item
-              - if progress.team_type == 0
-                %i.fas.fa-caret-right
-            - if progress.team_type == 0
-              = progress.to_change_player
-          %th 
-            = progress.progress_time
-            分
-          %td.away_details
-            - if progress.team_type == 1
-              = progress.from_change_player
-            %span.progress-item
-              - if progress.team_type == 1
-                %i.fas.fa-caret-right
-            - if progress.team_type == 1
-              = progress.to_change_player
-
-%table#game_details
-  %tbody
-    %tr
-      %td.home_details
-        = @homeTeamInfo.control_rate
-      %th ボール支配率
-      %td.away_details
-        = @awayTeamInfo.control_rate
-    %tr
-      %td.home_details
-        = @homeTeamInfo.shoot_count
-      %th シュート
-      %td.away_details
-        = @awayTeamInfo.shoot_count
-    %tr
-      %td.home_details
-        = @homeTeamInfo.frame_count
-      %th 枠内シュート
-      %td.away_details 
-        = @awayTeamInfo.frame_count
-    %tr
-      %td.home_details
-        = @homeTeamInfo.mileage
-      %th 走行距離
-      %td.away_details 
-        = @awayTeamInfo.mileage
-    %tr
-      %td.home_details
-        = @awayTeamInfo.sprint_count
-        杉本 太郎
-      %th スプリント
-      %td.away_details 
-        = @awayTeamInfo.sprint_count
-    %tr
-      %td.home_details
-        = @homeTeamInfo.pass_count
-        (#{@homeTeamInfo.pass_success_rate}%)
-      %th パス（成功率）
-      %td.away_details 
-        = @awayTeamInfo.pass_count
-        (#{@awayTeamInfo.pass_success_rate}%)
-    %tr
-      %td.home_details
-        = @homeTeamInfo.offside
-      %th オフサイド
-      %td.away_details 
-        = @awayTeamInfo.offside
-    %tr
-      %td.home_details
-        = @homeTeamInfo.freekick_count
-      %th フリーキック
-      %td.away_details 
-        = @awayTeamInfo.freekick_count
-    %tr
-      %td.home_details
-        = @homeTeamInfo.cornerkick_count
-      %th コーナーキック
-      %td.away_details 
-        = @awayTeamInfo.cornerkick_count
-    %tr
-      %td.home_details
-        = @homeTeamInfo.penalty_kick
-      %th ペナルティキック
-      %td.away_details 
-        = @awayTeamInfo.penalty_kick
+                = progress.to_change_player
+  
+  %table#game_details
+    %tbody
+      %tr
+        %td.home_details
+          = @homeTeamInfo.control_rate
+        %th ボール支配率
+        %td.away_details
+          = @awayTeamInfo.control_rate
+      %tr
+        %td.home_details
+          = @homeTeamInfo.shoot_count
+        %th シュート
+        %td.away_details
+          = @awayTeamInfo.shoot_count
+      %tr
+        %td.home_details
+          = @homeTeamInfo.frame_count
+        %th 枠内シュート
+        %td.away_details 
+          = @awayTeamInfo.frame_count
+      %tr
+        %td.home_details
+          = @homeTeamInfo.mileage
+        %th 走行距離
+        %td.away_details 
+          = @awayTeamInfo.mileage
+      %tr
+        %td.home_details
+          = @awayTeamInfo.sprint_count
+          杉本 太郎
+        %th スプリント
+        %td.away_details 
+          = @awayTeamInfo.sprint_count
+      %tr
+        %td.home_details
+          = @homeTeamInfo.pass_count
+          (#{@homeTeamInfo.pass_success_rate}%)
+        %th パス（成功率）
+        %td.away_details 
+          = @awayTeamInfo.pass_count
+          (#{@awayTeamInfo.pass_success_rate}%)
+      %tr
+        %td.home_details
+          = @homeTeamInfo.offside
+        %th オフサイド
+        %td.away_details 
+          = @awayTeamInfo.offside
+      %tr
+        %td.home_details
+          = @homeTeamInfo.freekick_count
+        %th フリーキック
+        %td.away_details 
+          = @awayTeamInfo.freekick_count
+      %tr
+        %td.home_details
+          = @homeTeamInfo.cornerkick_count
+        %th コーナーキック
+        %td.away_details 
+          = @awayTeamInfo.cornerkick_count
+      %tr
+        %td.home_details
+          = @homeTeamInfo.penalty_kick
+        %th ペナルティキック
+        %td.away_details 
+          = @awayTeamInfo.penalty_kick

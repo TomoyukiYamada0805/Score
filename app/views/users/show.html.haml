@@ -6,18 +6,19 @@
     %div
       %p #{@user.user_name}
   
-  .user-information-analysis
-    %canvas.post-teams-analysis
-    .post-player-analysis
-      %p.post-player-title
-        採点ランキング
-      - @evaluate_ranking.each_with_index do |evaluate, i|
-        %p
-          %span.rank #{i+1}
-          %span.player-name #{evaluate.player_name}
-          %span.point #{evaluate.point}
-        %p
-          %span.team-name #{evaluate.team_name}
+  - if @evaluate.present?
+    .user-information-analysis
+      %canvas.post-teams-analysis
+      .post-player-analysis
+        %p.post-player-title
+          採点プレイヤーランキング
+        - @evaluate_ranking.each_with_index do |evaluate, i|
+          %p
+            %span.rank #{i+1}
+            %span.player-name #{evaluate.player_name}
+            %span.point #{evaluate.point}
+          %p
+            %span.team-name #{evaluate.short_name}
   
   - @match.zip(@like_count).each do |match, like|
     .post-info-box
@@ -40,12 +41,11 @@
     var team_color = []
     var count      = []
     for (var i = 0; i < evaluate.length; i++) {
-      console.log(evaluate[i]);
-      team_name.push(evaluate[i].team_name)
+      team_name.push(evaluate[i].short_name)
       team_color.push(evaluate[i].team_color)
       count.push(evaluate[i].count)
     }
-    console.log(evaluate)
+    
     var ctx = document.getElementsByClassName("post-teams-analysis");
     var myPieChart = new Chart(ctx, {
       type: 'pie',
@@ -59,7 +59,7 @@
       options: {
         title: {
           display: true,
-          text: '採点チーム 割合'
+          text: '採点プレイヤーのチーム 割合'
         }
       }
     });

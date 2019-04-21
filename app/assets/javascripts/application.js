@@ -15,3 +15,7 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+function doubleStop(button){
+    button.style.pointerEvents = "none";
+}

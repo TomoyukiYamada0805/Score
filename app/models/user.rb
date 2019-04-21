@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  #validates :user_name, presence: true
   attribute :uid, :string, default: SecureRandom.hex(10)
   #belongs_to :match_evaluate, primary_key: :uid, foreign_key: :user_id
   mount_uploader :avatar, AvatarUploader

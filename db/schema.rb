@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_04_14_111018) do
 
-  create_table "evaluate_coaches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "evaluate_coaches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "match_id"
     t.string "coach_name"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "evaluate_matches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "evaluate_matches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "match_id"
     t.integer "del_flg"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "evaluate_players", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "evaluate_players", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "match_id"
     t.integer "player_id"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "evaluate_referees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "evaluate_referees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "match_id"
     t.string "referee_name"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "evaluate_teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "evaluate_teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "match_id"
     t.integer "team_id"
@@ -72,17 +72,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "match_evaluations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "match_id", null: false
-    t.integer "evaluation", null: false
-    t.string "comment"
-    t.integer "del_flg"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "match_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "match_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "match_id", null: false
     t.integer "team_type", null: false, comment: "0:home, 1:away"
     t.integer "team_id", null: false
@@ -104,7 +94,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "match_players", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "match_players", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "match_id", null: false
     t.integer "player_id"
     t.integer "team_type", null: false, comment: "0:home, 1:away"
@@ -119,7 +109,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "match_progresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "match_progresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "match_id", null: false
     t.integer "team_type", null: false, comment: "0:home, 1:away"
     t.integer "progress_type", null: false
@@ -134,7 +124,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "match_referees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "match_referees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "match_id", null: false
     t.string "referee_name", null: false
     t.integer "referee_type", null: false
@@ -143,7 +133,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "matches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "matches", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "match_id", null: false
     t.integer "league_type", null: false
     t.integer "section", null: false
@@ -155,18 +145,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "player_evaluations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "match_id", null: false
-    t.integer "player_id", null: false
-    t.integer "evaluation", null: false
-    t.string "comment"
-    t.integer "del_flg"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "players", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "players", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "player_type", null: false, comment: "0: 選手, 1: 監督, 2: 審判"
     t.integer "player_id"
     t.integer "team_id"
@@ -178,18 +157,7 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "referee_evaluations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "match_id", null: false
-    t.string "referee_name", null: false
-    t.integer "evaluation", null: false
-    t.string "comment"
-    t.integer "del_flg"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "team_id"
     t.string "team_name"
     t.string "short_name"
@@ -199,8 +167,8 @@ ActiveRecord::Schema.define(version: 2019_04_14_111018) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.string "user_name", null: false
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+    t.string "user_name"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

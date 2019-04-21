@@ -9,6 +9,8 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = analytics_init if Rails.env.production?
     = favicon_link_tag('favicon.ico')
+    %meta{:content => "width=device-width,initial-scale=1.0,minimum-scale=1.0", :name => "viewport"}/
+
 
   %body
     %header#site-header
@@ -39,7 +41,7 @@
             
         - else
           .header-button
-            = link_to "Sign in", new_user_session_path, class: 'post'
+            = link_to "Sign in", new_user_session_path, class: 'post signin'
             / ログイン画面に移行する
             = link_to "Sign up", new_user_registration_path, class: 'post'
             / 新規登録画面に移行する

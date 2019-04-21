@@ -1,7 +1,7 @@
 #side
-  %div
+  .latest_match_area
     %a{:href => "/match_list/2019/#{@section}"}
-      .latest-match-title 最新の試合
+      .latest-match-title 第#{@section}節
     - @latest_match.each do |match|
       %a{:href => "/matches/#{match.match_id}"}
         .latest-match-list-content

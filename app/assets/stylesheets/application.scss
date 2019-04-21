@@ -15,6 +15,11 @@
  *= require_self
  */
 
+ .font-big {
+   font-weight: bold;
+   font-size: 120%;
+ }
+
  a {
    text-decoration: none;
  }
@@ -105,12 +110,12 @@ body {
 }
 
 #footer {
-  position: fixed;
-  bottom: 0;
+  //position: fixed;
+  //bottom: 0;
   width: 100%;
   display: flex;
   border-top: 1px solid #ccc;
-  background: #fff;
+  //background: #fff;
   padding: 5px;
   justify-content: flex-end;
 
@@ -131,29 +136,36 @@ body {
   padding-top: 51px;
 
   #main{
-    width: 1000px;
+    width: 95%;
     //padding-left: 30px;
   }
 
   #side{
-    width: 300px;
+    width: 200px;
     padding: 10px 0 0 10px;
 
-    .latest-match-title{
-      font-weight: bold;
-    } 
+    .latest_match_area{
+      border: 1px solid #ccc;
+      border-radius: 3px;
 
-    .latest-match-list-content{
-      margin: 10px 0;
-
-      .home-team-name, .away-team-name{
-        width: 60px;
-        display: inline-block;
+      .latest-match-title{
+        font-weight: bold;
+        margin-left: 10px;
+      } 
+  
+      .latest-match-list-content{
+        margin: 10px 0;
         text-align: center;
-      }
-      
-      .center-text {
-        margin: 0 3px;
+  
+        .home-team-name, .away-team-name{
+          width: 60px;
+          display: inline-block;
+          text-align: center;
+        }
+        
+        .center-text {
+          margin: 0 3px;
+        }
       }
     }
 
@@ -207,6 +219,10 @@ body {
            color: #505763;
          }
 
+         .signin {
+           margin-right: 10px;
+         }
+
       }
 
     #user_info_area {
@@ -245,11 +261,6 @@ ul li:hover{
   background : #333;  
 }
 
-
-/* ========================================================== */
-/*   ここから下がメニューの設定                               */
-/* ========================================================== */
-
 /* メニューのON/OFFを保存する為のチェックボックス 非表示 */
 #menuOn{
   display : none
@@ -264,17 +275,10 @@ menu{
 }
 
 /* 隠しメニューを表示時のメニューの設定 */
-/* absolute指定を行い、高さも与える     */
 #menuOn:checked + menu{
   z-index   : 20;
 }
 
-/* オーバーレイ                                         */
-/* 隠しメニューが表示されているときに                   */
-/* LightBoxのように画面全体を覆うブロックを表示する     */
-/* これによってメニュー部分を除いて                     */
-/* 画面全体がチェックボックスへのクリックになるので     */
-/* メニュー以外の部分をクリックするとメニューが閉じます */
 #menuOn:checked + menu + div.overlay{
   position : fixed;
   top      :  0;
@@ -381,6 +385,9 @@ body, label, menu, ul, a, input, li, div{
            }
          }
      }
+   }
+   #side {
+     display: none;
    }
 }
 

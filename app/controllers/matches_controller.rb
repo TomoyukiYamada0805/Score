@@ -6,7 +6,7 @@ class MatchesController < ApplicationController
         @nextSection     = @section.to_i + 1 if @section.to_i + 1 < @latestSection
         @previousSection = @section.to_i - 1 if @section.to_i - 1 >= 1
 
-        @match = Match.select("matches.*, teams.team_name as home_team_name ,away_teams_matches.team_name as away_team_name").where(section: @section).left_outer_joins(:home_team).left_outer_joins(:away_team).order('matches.id')
+        @match = Match.select("matches.*, teams.short_name as home_team_name ,away_teams_matches.short_name as away_team_name").where(section: @section).left_outer_joins(:home_team).left_outer_joins(:away_team).order('matches.id')
     end
 
     def show
@@ -85,20 +85,24 @@ class MatchesController < ApplicationController
         evaluates = params[:evaluate]
         match_id = request.referer.split("/").last
 
-        EvaluateMatch.create(:user_id => current_user.uid, :match_id => match_id)
-        
-        evaluates.each do |evaluate|
-          if evaluate[:team_id].present?
-            EvaluateTeam.create(:user_id => current_user.uid, :match_id => match_id, :team_id => evaluate[:team_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
-          elsif evaluate[:coach_name].present?
-            EvaluateCoach.create(:user_id => current_user.uid, :match_id => match_id, :coach_name => evaluate[:coach_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
-          elsif evaluate[:player_id].present?
-            EvaluatePlayer.create(:user_id => current_user.uid, :match_id => match_id, :player_id => evaluate[:player_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
-          elsif evaluate[:referee_name].present?
-            EvaluateReferee.create(:user_id => current_user.uid, :match_id => match_id, :referee_name => evaluate[:referee_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+        registered = EvaluateMatch.where(:user_id => current_user.uid, :match_id => match_id)[0]
+
+        if registered.nil?
+          EvaluateMatch.create(:user_id => current_user.uid, :match_id => match_id)
+          
+          evaluates.each do |evaluate|
+            if evaluate[:team_id].present?
+              EvaluateTeam.create(:user_id => current_user.uid, :match_id => match_id, :team_id => evaluate[:team_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
+            elsif evaluate[:coach_name].present?
+              EvaluateCoach.create(:user_id => current_user.uid, :match_id => match_id, :coach_name => evaluate[:coach_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+            elsif evaluate[:player_id].present?
+              EvaluatePlayer.create(:user_id => current_user.uid, :match_id => match_id, :player_id => evaluate[:player_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+            elsif evaluate[:referee_name].present?
+              EvaluateReferee.create(:user_id => current_user.uid, :match_id => match_id, :referee_name => evaluate[:referee_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+            end
           end
+          redirect_to request.referer
         end
-        redirect_to request.referer
     end
 
     def update
