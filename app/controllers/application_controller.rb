@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   # herokuapp.comから独自ドメインへリダイレクト
   def ensure_domain
     if /\.herokuapp.com/ =~ request.host
-      redirect_to "https://www.score-club.com/#{request.path}"
+      redirect_to "https://www.score-club.com#{request.path}"
     end
   end
 
