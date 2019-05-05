@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :latest_match_list
   before_action :get_current_user_info
+  before_action :ensure_domain
 
   def get_current_user_info
     @login_user = User.where(uid: current_user.uid)[0] if current_user.present?
@@ -40,4 +41,12 @@ class ApplicationController < ActionController::Base
       username == ENV["BASIC_USER_NAME"] && password == ENV["BASIC_PASSWORD"]
     end
   end
+
+  # herokuapp.comから独自ドメインへリダイレクト
+  def ensure_domain
+    if /\.herokuapp.com/ =~ request.host
+      redirect_to "https://www.score-club.com/#{request.path}"
+    end
+  end
+
 end

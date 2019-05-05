@@ -35,6 +35,8 @@
         %p 
           = @awayTeamInfo.short_name
 
+= flash[:matches_error_message].gsub(/バリデーションに失敗しました: /, '') if flash[:matches_error_message].present?
+
 .submit-button-area
   = f.submit "登録", :class => "submit-button", :onclick => "doubleStop(this)"
 
@@ -191,12 +193,12 @@
   .overall-list
     = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(@homeTeamInfo[:evaluate_point]), :include_blank => true
     = f.hidden_field "evaluate[][team_id]", :value => "#{@homeTeamInfo.team_id}"
-    = f.text_area "evaluate[][comment]", :value => @homeTeamInfo["evaluate_comment"]
+    = f.text_area "evaluate[][comment]", :value => @homeTeamInfo["evaluate_comment"], :placeholder => "3000字以内で入力してください"
 
   .overall-list
     = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(@awayTeamInfo[:evaluate_point]), :include_blank => true
     = f.hidden_field "evaluate[][team_id]", :value => "#{@awayTeamInfo.team_id}"
-    = f.text_area "evaluate[][comment]", :value => @awayTeamInfo["evaluate_comment"]
+    = f.text_area "evaluate[][comment]", :value => @awayTeamInfo["evaluate_comment"], :placeholder => "3000字以内で入力してください"
 
 .submit-button-area
   = f.submit "登録", :class => "submit-button", :onclick => "doubleStop(this)"

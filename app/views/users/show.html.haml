@@ -1,5 +1,4 @@
 #main
-  - @evaluate_json = @evaluate.to_json.html_safe
   .user-info-area
     .user-image-area
       %img.user-profile-image{:src => "#{@user.avatar.present? ? @user.avatar.versions[:thumb] : "/assets/icon.jpg"}"}/
@@ -33,35 +32,7 @@
             %span
               %i.far.fa-heart
               #{like}
-  
-  %script
-  :javascript
-    var evaluate = #{@evaluate_json}
-    var team_name  = []
-    var team_color = []
-    var count      = []
-    for (var i = 0; i < evaluate.length; i++) {
-      team_name.push(evaluate[i].short_name)
-      team_color.push(evaluate[i].team_color)
-      count.push(evaluate[i].count)
-    }
-    
-    var ctx = document.getElementsByClassName("post-teams-analysis");
-    var myPieChart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: team_name,
-        datasets: [{
-            backgroundColor: team_color,
-            data: count
-        }]
-      },
-      options: {
-        title: {
-          display: true,
-          text: '採点プレイヤーのチーム 割合'
-        }
-      }
-    });
+
+  %input#evaluate_json{:type => "hidden", :value => "#{@evaluate.to_json.html_safe}"}/
 
 = render "/layouts/sidebar"

@@ -35,5 +35,8 @@ module Scoring
     config.generators.system_tests = nil
 
     config.assets.initialize_on_precompile = false
+
+    # バリデーとメッセージ日本語
+    config.i18n.default_locale = :ja
   end
 end

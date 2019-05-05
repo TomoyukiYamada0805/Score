@@ -88,42 +88,59 @@ class MatchesController < ApplicationController
         registered = EvaluateMatch.where(:user_id => current_user.uid, :match_id => match_id)[0]
 
         if registered.nil?
-          EvaluateMatch.create(:user_id => current_user.uid, :match_id => match_id)
-          
-          evaluates.each do |evaluate|
-            if evaluate[:team_id].present?
-              EvaluateTeam.create(:user_id => current_user.uid, :match_id => match_id, :team_id => evaluate[:team_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
-            elsif evaluate[:coach_name].present?
-              EvaluateCoach.create(:user_id => current_user.uid, :match_id => match_id, :coach_name => evaluate[:coach_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
-            elsif evaluate[:player_id].present?
-              EvaluatePlayer.create(:user_id => current_user.uid, :match_id => match_id, :player_id => evaluate[:player_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
-            elsif evaluate[:referee_name].present?
-              EvaluateReferee.create(:user_id => current_user.uid, :match_id => match_id, :referee_name => evaluate[:referee_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+          begin
+            ActiveRecord::Base.connection.transaction do
+              EvaluateMatch.create!(:user_id => current_user.uid, :match_id => match_id)
+              
+              evaluates.each do |evaluate|
+                if evaluate[:team_id].present?
+                  EvaluateTeam.create!(:user_id => current_user.uid, :match_id => match_id, :team_id => evaluate[:team_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
+                elsif evaluate[:coach_name].present?
+                  EvaluateCoach.create!(:user_id => current_user.uid, :match_id => match_id, :coach_name => evaluate[:coach_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+                elsif evaluate[:player_id].present?
+                  EvaluatePlayer.create!(:user_id => current_user.uid, :match_id => match_id, :player_id => evaluate[:player_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+                elsif evaluate[:referee_name].present?
+                  EvaluateReferee.create!(:user_id => current_user.uid, :match_id => match_id, :referee_name => evaluate[:referee_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+                end
+              end
             end
+          rescue => e
+            logger.info(e.message)
+            logger.info("失敗しました")
+            flash[:matches_error_message] = e.message
           end
           redirect_to request.referer
         end
     end
 
     def update
-        evaluates = params[:evaluate]
-        match_id = request.referer.split("/").last
+      evaluates = params[:evaluate]
+      match_id = request.referer.split("/").last
 
-        #update_atのみ更新
-        EvaluateMatch.where(user_id: current_user.uid)[0].touch
-
-        evaluates.each do |evaluate|
-          if evaluate[:team_id].present?
-            EvaluateTeam.where(user_id: current_user.uid, team_id: evaluate[:team_id]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
-          elsif evaluate[:coach_name].present?
-            EvaluateCoach.where(user_id: current_user.uid, coach_name: evaluate[:coach_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil )
-          elsif evaluate[:player_id].present?
-            EvaluatePlayer.where(user_id: current_user.uid, player_id: evaluate[:player_id]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
-          elsif evaluate[:referee_name].present?
-            EvaluateReferee.where(user_id: current_user.uid, referee_name: evaluate[:referee_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+      begin
+        ActiveRecord::Base.connection.transaction do
+          #update_atのみ更新
+          EvaluateMatch.where(user_id: current_user.uid)[0].touch
+    
+          evaluates.each do |evaluate|
+            if evaluate[:team_id].present?
+              EvaluateTeam.where(user_id: current_user.uid, team_id: evaluate[:team_id]).update!(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
+            elsif evaluate[:coach_name].present?
+              EvaluateCoach.where(user_id: current_user.uid, coach_name: evaluate[:coach_name]).update!(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil )
+            elsif evaluate[:player_id].present?
+              EvaluatePlayer.where(user_id: current_user.uid, player_id: evaluate[:player_id]).update!(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+            elsif evaluate[:referee_name].present?
+              EvaluateReferee.where(user_id: current_user.uid, referee_name: evaluate[:referee_name]).update!(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+            end
           end
+          redirect_to request.referer
+        rescue => e
+          logger.info(e)
+          logger.info("失敗しました")
+          @error_message = e.full_messages
+          redirect_to request.referer
         end
-        redirect_to request.referer
+      end
     end
 
 end

@@ -37,6 +37,10 @@
           %p 
             = @awayTeamInfo.short_name
 
+  - if current_user.uid == @user.uid
+    %a{:href => "/matches/#{@match.match_id}"}
+      %button 編集
+
   .user_info_area
     .user_avatar-area
     %a{:href => "/users/#{@user.uid}"}

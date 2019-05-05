@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+      evaluate_team: チーム評価
+    attributes:
+      evaluate_team:
+        evaluate_comment: 評価コメント 

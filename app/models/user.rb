@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   has_many :evaluate_match, dependent: :destroy
   has_many :likes, dependent: :destroy
+
+  validates :user_name,    length: { maximum:  15}
          
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
