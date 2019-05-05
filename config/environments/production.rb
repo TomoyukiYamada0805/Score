@@ -95,4 +95,7 @@ Rails.application.configure do
 
   # GA
   GA.tracker = "UA-118743433-2"
+
+  # redirect to https path
+  config.force_ssl = true
 end
