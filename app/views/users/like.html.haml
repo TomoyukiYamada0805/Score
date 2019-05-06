@@ -1,4 +1,15 @@
 #main
+  .user-info-area
+    .user-image-area
+      %img.user-profile-image{:src => "#{@user.avatar.present? ? @user.avatar.versions[:thumb] : "/assets/icon.jpg"}"}/
+    %div
+      %p #{@user.user_name}
+  
+  %a{:href => "/users/#{@user.uid}"}
+    ユーザー情報トップ
+  %p
+    いいね一覧
+  
   - @match.zip(@like_count).each do |match, like|
     .post-info-box
       %a{:href => "/users/#{match.uid}"}
@@ -8,10 +19,11 @@
           .post-title J1 第#{match.section}節 #{match.home_team_name} vs #{match.away_team_name}
           .post-info 
             %span by #{match.user_name}
-            %span #{match.evaluate_date.to_s(:time_format)}
+            %span #{match.updated_at.to_s(:time_format)}
             %span
               %i.far.fa-heart
               #{like}
-  = paginate @match
+
+  = paginate @like_matches
 
 = render "/layouts/sidebar"

@@ -1,0 +1,4 @@
+%ul
+  - @user.followers.each do |user|
+    %li
+      = link_to "#{user.user_name}", user_path(user.uid)
