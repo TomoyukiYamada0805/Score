@@ -35,10 +35,10 @@
         = f.submit "Follow"
 
   
-  - @match.zip(@like_count).each do |match, like|
+  - @match.zip(@like_count, @evaluate_user).each do |match, like, user|
     .post-info-box
       %a{:href => "/users/#{match.uid}"}
-        %img.user-profile-image{:src => "#{image_path(match.avatar, match.user_id)}"}/
+        %img.user-profile-image{:src => "#{user.present? ? user.avatar : "/assets/icon.jpg"}"}/
       %a{:href => "/matches/#{match.match_id}/evaluate/#{match.uid}"}
         .post-info-text
           .post-title J1 第#{match.section}節 #{match.home_team_name} vs #{match.away_team_name}
