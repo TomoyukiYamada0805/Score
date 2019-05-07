@@ -1,7 +1,7 @@
 #main
   .user-info-area
     .user-image-area
-      %img.user-profile-image{:src => "#{@user.avatar.present? ? @user.avatar.versions[:thumb] : "/assets/icon.jpg"}"}/
+      %img.user-profile-image{:src => "#{user.present? && user.avatar.present? ? user.avatar : "/assets/icon.jpg"}"}/
     %div
       %p #{@user.user_name}
   
