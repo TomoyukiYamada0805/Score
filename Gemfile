@@ -48,6 +48,7 @@ gem 'google-analytics-rails'
 gem 'rails-i18n'
 gem 'kaminari'
 gem 'cloudinary'
+gem 'fog'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
