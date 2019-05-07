@@ -1,6 +1,7 @@
 class AvatarUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
    include CarrierWave::RMagick
+   include Cloudinary::CarrierWave
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
@@ -49,9 +50,9 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  def filename
-    "#{secure_token}.#{file.extension}"  if original_filename
-  end
+  #def filename
+  #  "#{secure_token}.#{file.extension}"  if original_filename
+  #end
 
   protected
   def secure_token

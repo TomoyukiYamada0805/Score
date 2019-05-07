@@ -68,6 +68,6 @@ class EvaluatesController < ApplicationController
             end
         end
         @like_count = Like.where(post_user_id: params[:user_id], match_id: params[:match_id])
-        @like = Like.where(post_user_id: params[:user_id], match_id: params[:match_id], like_user_id: current_user.uid)
+        @like = Like.where(post_user_id: params[:user_id], match_id: params[:match_id], like_user_id: current_user.uid) if current_user.present?
     end
 end

@@ -37,7 +37,7 @@
           %p 
             = @awayTeamInfo.short_name
 
-  - if current_user.uid == @user.uid
+  - if current_user.present? && current_user.uid == @user.uid
     %a{:href => "/matches/#{@match.match_id}"}
       %button 編集
 
@@ -47,14 +47,16 @@
       %img{:src => "#{@user.avatar.present? ? @user.avatar.versions[:thumb] : "/assets/icon.jpg"}"}/
     .user-info-text
       %p.user_name
-        by #{@user.user_name}
+        by 
+        %a{:href => "/users/#{@user.uid}"} #{@user.user_name}
       %p.updated_at
         = @user.updated_at.to_s(:time_format)
 
-    - if @like.present?
-      = button_to "いいね済み #{@like_count.size}", post_delete_path(), :style => "background: #DC143C; border-color: #DC143C; color: #f3f3f3;", :onclick => "doubleStop(this)"
-    - else
-      = button_to "いいね #{@like_count.size}", post_likes_path(), :style => "border-color: #DC143C;", :onclick => "doubleStop(this)"
+    - if current_user.present?
+      - if @like.present?
+        = button_to "いいね済み #{@like_count.size}", post_delete_path(), :style => "background: #DC143C; border-color: #DC143C; color: #f3f3f3;", :onclick => "doubleStop(this)"
+      - else
+        = button_to "いいね #{@like_count.size}", post_likes_path(), :style => "border-color: #DC143C;", :onclick => "doubleStop(this)"
   
   
   #team_name_info

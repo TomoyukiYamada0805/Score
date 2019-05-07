@@ -4,4 +4,12 @@ ja:
       evaluate_team: チーム評価
     attributes:
       evaluate_team:
-        evaluate_comment: 評価コメント 
+        evaluate_comment: 評価コメント
+    models:
+      user: チーム評価
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        user_name: ユーザー名
