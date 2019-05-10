@@ -2,8 +2,10 @@
 
 Score というサッカーの試合を採点するサービスです。
 
-URL:
-https://www.score-club.com/
+URL: https://www.score-club.com/
+
+ログインアドレス: score.club.staff@gmail.com
+パスワード: scorelogin
 
 * 概要
 現在、J1リーグに対応しており、各試合の選手や監督、審判
