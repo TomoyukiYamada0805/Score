@@ -2,23 +2,22 @@
   <h2>ユーザー情報変更</h2>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :メールアドレス %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :ユーザー名 %><br />
-    <%= f.text_field :user_name %>
-    <br />
-    <em>必須項目です</em>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
   <% unless current_user.email == "score.club.staff@gmail.com" %>
+    <div class="field">
+      <%= f.label :メールアドレス %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+  
+    <div class="field">
+      <%= f.label :ユーザー名 %><br />
+      <%= f.text_field :user_name %>
+      <br />
+      <em>必須項目です</em>
+    </div>
+  
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
 
     <div class="field">
       <%= f.label :パスワード %> <br />
@@ -33,7 +32,7 @@
       <%= f.label :パスワード確認 %><br />
       <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
     </div>
-    
+
   <% end %>
 
   <div class="field">
