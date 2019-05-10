@@ -19,8 +19,8 @@ class ApplicationController < ActionController::Base
   end
 
   def latest_match_list
-    @section = Match.maximum("section")
-    @latest_match = Match.select("matches.*, teams.short_name as home_team_name ,away_teams_matches.short_name as away_team_name").where(section: @section).left_outer_joins(:home_team).left_outer_joins(:away_team).order('matches.id')
+    @latest_section = Match.maximum("section")
+    @latest_match = Match.select("matches.*, teams.short_name as home_team_name ,away_teams_matches.short_name as away_team_name").where(section: @latest_section).left_outer_joins(:home_team).left_outer_joins(:away_team).order('matches.id')
   end
 
   def registered_user_name?

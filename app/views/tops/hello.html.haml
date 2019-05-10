@@ -1,4 +1,7 @@
 #main
+  - if flash[:alert].present?
+    %div.alert
+      = flash[:alert]
   .slider_css
     %ul
       %li

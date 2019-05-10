@@ -3,13 +3,15 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :ユーザー名 %><br />
-    <%= f.text_field :user_name %>
+    <%= f.label :メールアドレス %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :メールアドレス %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :ユーザー名 %><br />
+    <%= f.text_field :user_name %>
+    <br />
+    <em>必須項目です</em>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

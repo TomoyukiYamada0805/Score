@@ -77,6 +77,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up for inactive accounts.
    def after_inactive_sign_up_path_for(resource)
+     flash[:alert] = "登録したメールアドレスに確認用メールを送信しました。確認用メールから認証を行ってください。"
      root_path
    end
 

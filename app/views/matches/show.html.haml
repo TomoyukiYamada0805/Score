@@ -1,4 +1,7 @@
 #main
+  - if flash[:alert].present?
+    %div.alert
+      = flash[:alert]
   - if @create_flg.present?
     = form_with url: match_path, data: {remote: false}, :method => :put do |f|
       = render "evaluate_area", f: f

@@ -38,7 +38,7 @@
 = flash[:matches_error_message].gsub(/バリデーションに失敗しました: /, '') if flash[:matches_error_message].present?
 
 .submit-button-area
-  = f.submit "登録", :class => "submit-button", :onclick => "doubleStop(this)"
+  = f.submit "登録", :class => "btn-border", :onclick => "doubleStop(this)"
 
 #team_name_info
   .home-member-list.member-list-style
@@ -201,7 +201,7 @@
     = f.text_area "evaluate[][comment]", :value => @awayTeamInfo["evaluate_comment"], :placeholder => "3000字以内で入力してください"
 
 .submit-button-area
-  = f.submit "登録", :class => "submit-button", :onclick => "doubleStop(this)"
+  = f.submit "登録", :class => "btn-border", :onclick => "doubleStop(this)"
 
 .list-title 
   %span.list-title-style 試合詳細

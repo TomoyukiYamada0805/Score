@@ -54,6 +54,12 @@
     }
 }
 
+.follow-list, .follower-list{
+  li{
+    list-style: none;
+  }
+}
+
 @media screen and (max-width: 750px) {
     .user-information-analysis {
         .post-teams-analysis {

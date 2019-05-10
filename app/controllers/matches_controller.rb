@@ -1,10 +1,10 @@
 class MatchesController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, except: :list
 
     def list
         @section         = params[:section]
         @latestSection   = Match.maximum("section")
-        @nextSection     = @section.to_i + 1 if @section.to_i + 1 < @latestSection
+        @nextSection     = @section.to_i + 1 if @section.to_i + 1 <= @latestSection
         @previousSection = @section.to_i - 1 if @section.to_i - 1 >= 1
 
         @match = Match.select("matches.*, teams.short_name as home_team_name ,away_teams_matches.short_name as away_team_name").where(section: @section).left_outer_joins(:home_team).left_outer_joins(:away_team).order('matches.id')
@@ -12,14 +12,12 @@ class MatchesController < ApplicationController
 
     def show
         match_id = params[:id]
-        @create_flg = EvaluateMatch.where(user_id: current_user.uid, match_id: match_id)
-        @create_flg = @create_flg[0]
-        @match   = Match.where(match_id: match_id)
-        @match   = @match[0]
-        @team    = MatchInfo.select("*").where(match_id: match_id).left_outer_joins(:team).joins("LEFT OUTER JOIN `evaluate_teams` ON `evaluate_teams`.`team_id` = `match_infos`.`team_id` AND (user_id = '#{current_user.uid}') AND (evaluate_teams.match_id = #{match_id})")
-        @player  = MatchPlayer.select("*").where(match_id: match_id).left_outer_joins(:player).joins("LEFT OUTER JOIN `evaluate_players` ON `evaluate_players`.`player_id` = `match_players`.`player_id` AND (user_id = '#{current_user.uid}') AND (evaluate_players.match_id = #{match_id})")
-        @coach   = MatchPlayer.select("*").where(match_id: match_id, player_type: 1).joins("LEFT OUTER JOIN `evaluate_coaches` ON `evaluate_coaches`.`coach_name` = `match_players`.`player_name` AND (user_id = '#{current_user.uid}') AND (evaluate_coaches.match_id = #{match_id})")
-        @referee = MatchReferee.select("match_referees.referee_name, match_referees.referee_type, evaluate_point").where(match_id: match_id).joins("LEFT OUTER JOIN `evaluate_referees` ON `evaluate_referees`.`referee_name` = `match_referees`.`referee_name` AND (user_id = '#{current_user.uid}') AND (evaluate_referees.match_id = #{match_id})")
+        @create_flg = EvaluateMatch.where(user_id: current_user.id, match_id: match_id)[0]
+        @match   = Match.where(match_id: match_id)[0]
+        @team    = MatchInfo.select("*").where(match_id: match_id).left_outer_joins(:team).joins("LEFT OUTER JOIN `evaluate_teams` ON `evaluate_teams`.`team_id` = `match_infos`.`team_id` AND (user_id = '#{current_user.id}') AND (evaluate_teams.match_id = #{match_id})")
+        @player  = MatchPlayer.select("*").where(match_id: match_id).left_outer_joins(:player).joins("LEFT OUTER JOIN `evaluate_players` ON `evaluate_players`.`player_id` = `match_players`.`player_id` AND (user_id = '#{current_user.id}') AND (evaluate_players.match_id = #{match_id})")
+        @coach   = MatchPlayer.select("*").where(match_id: match_id, player_type: 1).joins("LEFT OUTER JOIN `evaluate_coaches` ON `evaluate_coaches`.`coach_name` = `match_players`.`player_name` AND (user_id = '#{current_user.id}') AND (evaluate_coaches.match_id = #{match_id})")
+        @referee = MatchReferee.select("match_referees.referee_name, match_referees.referee_type, evaluate_point").where(match_id: match_id).joins("LEFT OUTER JOIN `evaluate_referees` ON `evaluate_referees`.`referee_name` = `match_referees`.`referee_name` AND (user_id = '#{current_user.id}') AND (evaluate_referees.match_id = #{match_id})")
         @progress = MatchProgress.where(match_id: match_id)
 
         @homeTeamInfo = {}
@@ -86,7 +84,7 @@ class MatchesController < ApplicationController
         evaluates = params[:evaluate]
         match_id = request.referer.split("/").last
 
-        registered = EvaluateMatch.where(:user_id => current_user.uid, :match_id => match_id)[0]
+        registered = EvaluateMatch.where(:user_id => current_user.id, :match_id => match_id)[0]
 
         if registered.nil?
           team_ids      = []
@@ -95,10 +93,10 @@ class MatchesController < ApplicationController
           referee_names = []
 
           # Formの情報を変更されたなどで、試合に関係ない情報が入ってくることを制御
-          @team    = MatchInfo.select("*").where(match_id: match_id).left_outer_joins(:team).joins("LEFT OUTER JOIN `evaluate_teams` ON `evaluate_teams`.`team_id` = `match_infos`.`team_id` AND (user_id = '#{current_user.uid}') AND (evaluate_teams.match_id = #{match_id})")
-          @player  = MatchPlayer.select("*").where(match_id: match_id).left_outer_joins(:player).joins("LEFT OUTER JOIN `evaluate_players` ON `evaluate_players`.`player_id` = `match_players`.`player_id` AND (user_id = '#{current_user.uid}') AND (evaluate_players.match_id = #{match_id})")
-          @coach   = MatchPlayer.select("*").where(match_id: match_id, player_type: 1).joins("LEFT OUTER JOIN `evaluate_coaches` ON `evaluate_coaches`.`coach_name` = `match_players`.`player_name` AND (user_id = '#{current_user.uid}') AND (evaluate_coaches.match_id = #{match_id})")
-          @referee = MatchReferee.select("match_referees.referee_name, match_referees.referee_type, evaluate_point").where(match_id: match_id).joins("LEFT OUTER JOIN `evaluate_referees` ON `evaluate_referees`.`referee_name` = `match_referees`.`referee_name` AND (user_id = '#{current_user.uid}') AND (evaluate_referees.match_id = #{match_id})")
+          @team    = MatchInfo.select("*").where(match_id: match_id).left_outer_joins(:team).joins("LEFT OUTER JOIN `evaluate_teams` ON `evaluate_teams`.`team_id` = `match_infos`.`team_id` AND (user_id = '#{current_user.id}') AND (evaluate_teams.match_id = #{match_id})")
+          @player  = MatchPlayer.select("*").where(match_id: match_id).left_outer_joins(:player).joins("LEFT OUTER JOIN `evaluate_players` ON `evaluate_players`.`player_id` = `match_players`.`player_id` AND (user_id = '#{current_user.id}') AND (evaluate_players.match_id = #{match_id})")
+          @coach   = MatchPlayer.select("*").where(match_id: match_id, player_type: 1).joins("LEFT OUTER JOIN `evaluate_coaches` ON `evaluate_coaches`.`coach_name` = `match_players`.`player_name` AND (user_id = '#{current_user.id}') AND (evaluate_coaches.match_id = #{match_id})")
+          @referee = MatchReferee.select("match_referees.referee_name, match_referees.referee_type, evaluate_point").where(match_id: match_id).joins("LEFT OUTER JOIN `evaluate_referees` ON `evaluate_referees`.`referee_name` = `match_referees`.`referee_name` AND (user_id = '#{current_user.id}') AND (evaluate_referees.match_id = #{match_id})")
 
           @team.each do |team|
             team_ids.push(team.team_id)
@@ -118,34 +116,34 @@ class MatchesController < ApplicationController
 
           begin
             ActiveRecord::Base.connection.transaction do
-              EvaluateMatch.create!(:user_id => current_user.uid, :match_id => match_id)
+              EvaluateMatch.create!(:user_id => current_user.id, :match_id => match_id)
               
               evaluates.each do |evaluate|
                 if evaluate[:team_id].present?
                   if team_ids.include?(evaluate[:team_id].to_i)
                     team_ids.delete(evaluate[:team_id].to_i)
-                    EvaluateTeam.create!(:user_id => current_user.uid, :match_id => match_id, :team_id => evaluate[:team_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
+                    EvaluateTeam.create!(:user_id => current_user.id, :match_id => match_id, :team_id => evaluate[:team_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
                   else
                     raise
                   end
                 elsif evaluate[:coach_name].present?
                   if coach_names.include?(evaluate[:coach_name])
                     coach_names.delete(evaluate[:coach_name])
-                    EvaluateCoach.create!(:user_id => current_user.uid, :match_id => match_id, :coach_name => evaluate[:coach_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+                    EvaluateCoach.create!(:user_id => current_user.id, :match_id => match_id, :coach_name => evaluate[:coach_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
                   else
                     raise
                   end
                 elsif evaluate[:player_id].present?
                   if player_ids.include?(evaluate[:player_id].to_i)
                     player_ids.delete(evaluate[:player_id].to_i)
-                    EvaluatePlayer.create!(:user_id => current_user.uid, :match_id => match_id, :player_id => evaluate[:player_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+                    EvaluatePlayer.create!(:user_id => current_user.id, :match_id => match_id, :player_id => evaluate[:player_id], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
                   else
                     raise
                   end
                 elsif evaluate[:referee_name].present?
                   if referee_names.include?(evaluate[:referee_name])
                     referee_names.delete(evaluate[:referee_name])
-                    EvaluateReferee.create!(:user_id => current_user.uid, :match_id => match_id, :referee_name => evaluate[:referee_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+                    EvaluateReferee.create!(:user_id => current_user.id, :match_id => match_id, :referee_name => evaluate[:referee_name], :evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
                   else
                     raise
                   end
@@ -158,6 +156,7 @@ class MatchesController < ApplicationController
             logger.info("失敗しました")
             flash[:matches_error_message] = e.message
           end
+          flash[:alert] = "登録完了しました"
           redirect_to request.referer
         end
     end
@@ -173,17 +172,17 @@ class MatchesController < ApplicationController
       begin
         ActiveRecord::Base.connection.transaction do
           #update_atのみ更新
-          EvaluateMatch.where(user_id: current_user.uid)[0].touch
+          EvaluateMatch.where(user_id: current_user.id)[0].touch
     
           evaluates.each do |evaluate|
             if evaluate[:team_id].present?
-              EvaluateTeam.where(user_id: current_user.uid, team_id: evaluate[:team_id]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
+              EvaluateTeam.where(user_id: current_user.id, team_id: evaluate[:team_id]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
             elsif evaluate[:coach_name].present?
-              EvaluateCoach.where(user_id: current_user.uid, coach_name: evaluate[:coach_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil )
+              EvaluateCoach.where(user_id: current_user.id, coach_name: evaluate[:coach_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil )
             elsif evaluate[:player_id].present?
-              EvaluatePlayer.where(user_id: current_user.uid, player_id: evaluate[:player_id]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+              EvaluatePlayer.where(user_id: current_user.id, player_id: evaluate[:player_id]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
             elsif evaluate[:referee_name].present?
-              EvaluateReferee.where(user_id: current_user.uid, referee_name: evaluate[:referee_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+              EvaluateReferee.where(user_id: current_user.id, referee_name: evaluate[:referee_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
             end
           end
         rescue => e
@@ -191,6 +190,7 @@ class MatchesController < ApplicationController
           logger.info("失敗しました")
           @error_message = e.message
         end
+        flash[:alert] = "更新完了しました"
         redirect_to request.referer
       end
     end

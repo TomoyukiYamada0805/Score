@@ -1,4 +1,6 @@
-%ul
-  - @user.followers.each do |user|
-    %li
-      = link_to "#{user.user_name}", user_path(user.uid)
+#main
+  %ul.follower-list
+    - @user.followers.each do |user|
+      %li
+        = link_to "#{user.user_name}", user_path(user.uid)
+= render "/layouts/sidebar"

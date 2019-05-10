@@ -9,7 +9,7 @@ class TopsController < ApplicationController
     @user       = []
     @match.each do |match|
       @user.push(User.where(uid: match.uid)[0])
-      @like_count.push(Like.where(post_user_id: match[:uid], match_id: match[:match_id]).size)
+      @like_count.push(Like.where(post_user_id: match[:user_id], match_id: match[:match_id]).size)
     end
 
     if user_signed_in?
