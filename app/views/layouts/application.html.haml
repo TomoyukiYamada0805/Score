@@ -34,7 +34,7 @@
                     %li
                       %a{:href => "/users/edit"} ユーザー情報変更
                     %li
-                      %a{:href => "/match_list/2019/#{@section}"} 試合一覧
+                      %a{:href => "/match_list/2019/#{@latest_section}"} 試合一覧
                     %li
                       = link_to 'ログアウト', destroy_user_session_path, method: :delete
                 .overlay
