@@ -18,6 +18,8 @@ URL: https://www.score-club.com/
 他の人の評価を見ることにより、共感や新しい視点が増え、よりサッカー観戦が楽しくなっていくことを目的としています。
 
 # 技術
+アプリケーション
+
 ・Ruby
 ・Ruby on Rails
 ・haml
@@ -27,5 +29,9 @@ URL: https://www.score-club.com/
 ・SendGrid
 ・Cloudinary
 など
+
+試合や選手などの情報をDBに登録
+
+・Golang
 
 デザイン変更や機能追加予定多数
