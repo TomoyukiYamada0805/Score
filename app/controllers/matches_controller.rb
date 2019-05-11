@@ -185,12 +185,12 @@ class MatchesController < ApplicationController
               EvaluateReferee.where(user_id: current_user.id, referee_name: evaluate[:referee_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
             end
           end
+          flash[:alert] = "更新完了しました"
         rescue => e
           logger.info(e)
           logger.info("失敗しました")
           @error_message = e.message
         end
-        flash[:alert] = "更新完了しました"
         redirect_to request.referer
       end
     end
