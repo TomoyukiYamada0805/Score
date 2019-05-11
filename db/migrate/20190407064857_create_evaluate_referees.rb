@@ -5,7 +5,7 @@ class CreateEvaluateReferees < ActiveRecord::Migration[5.2]
       t.integer :user_id, :null => false, :limit => 8 
       t.string  :referee_name
       t.float :evaluate_point
-      t.string  :evaluate_comment
+      t.text  :evaluate_comment
       t.integer :del_flg
 
       t.timestamps

@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_05_05_105132) do
     t.integer "match_id"
     t.string "coach_name"
     t.float "evaluate_point"
-    t.string "evaluate_comment"
+    t.text "evaluate_comment"
     t.integer "del_flg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_05_05_105132) do
     t.integer "match_id"
     t.integer "player_id"
     t.float "evaluate_point"
-    t.string "evaluate_comment"
+    t.text "evaluate_comment"
     t.integer "del_flg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2019_05_05_105132) do
     t.integer "match_id"
     t.string "referee_name"
     t.float "evaluate_point"
-    t.string "evaluate_comment"
+    t.text "evaluate_comment"
     t.integer "del_flg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2019_05_05_105132) do
     t.integer "match_id"
     t.integer "team_id"
     t.float "evaluate_point"
-    t.string "evaluate_comment"
+    t.text "evaluate_comment"
     t.integer "del_flg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
