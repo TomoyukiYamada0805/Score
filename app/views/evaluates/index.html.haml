@@ -202,10 +202,12 @@
   #overall
     %pre.overall-list
       = selected_evaluate_point(@homeTeamInfo.evaluate_point)
+      %br/
       = @homeTeamInfo.evaluate_comment
   
     %pre.overall-list
       = selected_evaluate_point(@awayTeamInfo.evaluate_point)
+      %br/
       = @awayTeamInfo.evaluate_comment
   
   .list-title 
