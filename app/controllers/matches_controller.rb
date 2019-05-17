@@ -176,13 +176,13 @@ class MatchesController < ApplicationController
     
           evaluates.each do |evaluate|
             if evaluate[:team_id].present?
-              EvaluateTeam.where(user_id: current_user.id, team_id: evaluate[:team_id]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
+              EvaluateTeam.where(user_id: current_user.id, team_id: evaluate[:team_id], match_id: match_id).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil , :evaluate_comment => evaluate[:comment])
             elsif evaluate[:coach_name].present?
-              EvaluateCoach.where(user_id: current_user.id, coach_name: evaluate[:coach_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil )
+              EvaluateCoach.where(user_id: current_user.id, coach_name: evaluate[:coach_name], match_id: match_id).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil )
             elsif evaluate[:player_id].present?
-              EvaluatePlayer.where(user_id: current_user.id, player_id: evaluate[:player_id]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+              EvaluatePlayer.where(user_id: current_user.id, player_id: evaluate[:player_id], match_id: match_id).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
             elsif evaluate[:referee_name].present?
-              EvaluateReferee.where(user_id: current_user.id, referee_name: evaluate[:referee_name]).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
+              EvaluateReferee.where(user_id: current_user.id, referee_name: evaluate[:referee_name], match_id: match_id).update(:evaluate_point => evaluate[:point].present? ? evaluate[:point].to_f : nil  )
             end
           end
           flash[:alert] = "更新完了しました"

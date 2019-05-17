@@ -200,12 +200,14 @@
     %span.list-title-style 総評
   
   #overall
-    .overall-list
+    %pre.overall-list
       = selected_evaluate_point(@homeTeamInfo.evaluate_point)
+      %br/
       = @homeTeamInfo.evaluate_comment
   
-    .overall-list
+    %pre.overall-list
       = selected_evaluate_point(@awayTeamInfo.evaluate_point)
+      %br/
       = @awayTeamInfo.evaluate_comment
   
   .list-title 
