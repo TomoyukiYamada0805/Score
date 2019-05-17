@@ -34,4 +34,4 @@ URL: https://www.score-club.com/
 
 ・Golang
 
-デザイン変更や機能追加予定多数
+
