@@ -23,6 +23,7 @@ class User < ApplicationRecord
 
   validates :user_name, length: { maximum:  15}
   validates :user_name, uniqueness: true
+  validates :introduction, length: { maximum:  200}
          
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

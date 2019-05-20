@@ -9,6 +9,11 @@
         = link_to "followers: #{@user.followers.count}", followers_user_path(@user)
       %a{:href => "/users/#{@user.uid}/likes"}
         %p いいね一覧
+  - if @user.introduction.present?
+    .user-introduction-area
+      %p.user-introduction
+        #{@user.introduction}
+        
   
   - if @evaluate.present?
     .user-information-analysis
