@@ -51,7 +51,7 @@
         by 
         %a{:href => "/users/#{@user.uid}"} #{@user.user_name}
       %p.updated_at
-        = @user.updated_at.to_s(:time_format)
+        = @evaluate_match.updated_at.to_s(:time_format)
 
     - if current_user.present?
       - if @like.present?

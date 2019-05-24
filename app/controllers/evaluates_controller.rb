@@ -1,13 +1,14 @@
 class EvaluatesController < ApplicationController
     def index
         match_id = params[:match_id]
-        @user    = User.where(uid: params[:user_id])[0]
-        @match   = Match.where(match_id: match_id)[0]
-        @team    = MatchInfo.select("*").where(match_id: match_id).left_outer_joins(:team).joins("LEFT OUTER JOIN `evaluate_teams` ON `evaluate_teams`.`team_id` = `match_infos`.`team_id` AND (user_id = '#{@user.id}') AND (evaluate_teams.match_id = #{match_id})")
-        @player  = MatchPlayer.select("*").where(match_id: match_id).left_outer_joins(:player).joins("LEFT OUTER JOIN `evaluate_players` ON `evaluate_players`.`player_id` = `match_players`.`player_id` AND (user_id = '#{@user.id}') AND (evaluate_players.match_id = #{match_id})")
-        @coach   = MatchPlayer.select("*").where(match_id: match_id, player_type: 1).joins("LEFT OUTER JOIN `evaluate_coaches` ON `evaluate_coaches`.`coach_name` = `match_players`.`player_name` AND (user_id = '#{@user.id}') AND (evaluate_coaches.match_id = #{match_id})")
-        @referee = MatchReferee.select("*").where(match_id: match_id).joins("LEFT OUTER JOIN `evaluate_referees` ON `evaluate_referees`.`referee_name` = `match_referees`.`referee_name` AND (user_id = '#{@user.id}') AND (evaluate_referees.match_id = #{match_id})")
-        @progress = MatchProgress.where(match_id: match_id)
+        @user           = User.where(uid: params[:user_id])[0]
+        @match          = Match.where(match_id: match_id)[0]
+        @team           = MatchInfo.select("*").where(match_id: match_id).left_outer_joins(:team).joins("LEFT OUTER JOIN `evaluate_teams` ON `evaluate_teams`.`team_id` = `match_infos`.`team_id` AND (user_id = '#{@user.id}') AND (evaluate_teams.match_id = #{match_id})")
+        @player         = MatchPlayer.select("*").where(match_id: match_id).left_outer_joins(:player).joins("LEFT OUTER JOIN `evaluate_players` ON `evaluate_players`.`player_id` = `match_players`.`player_id` AND (user_id = '#{@user.id}') AND (evaluate_players.match_id = #{match_id})")
+        @coach          = MatchPlayer.select("*").where(match_id: match_id, player_type: 1).joins("LEFT OUTER JOIN `evaluate_coaches` ON `evaluate_coaches`.`coach_name` = `match_players`.`player_name` AND (user_id = '#{@user.id}') AND (evaluate_coaches.match_id = #{match_id})")
+        @referee        = MatchReferee.select("*").where(match_id: match_id).joins("LEFT OUTER JOIN `evaluate_referees` ON `evaluate_referees`.`referee_name` = `match_referees`.`referee_name` AND (user_id = '#{@user.id}') AND (evaluate_referees.match_id = #{match_id})")
+        @progress       = MatchProgress.where(match_id: match_id)
+        @evaluate_match = EvaluateMatch.where(match_id: match_id)[0]
 
         @homeTeamInfo = {}
         @awayTeamInfo = {}
