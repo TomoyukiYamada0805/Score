@@ -5,7 +5,7 @@ class UsersController < ApplicationController
       @user = User.where(uid: params[:id])[0]
       user_id = @user.id
       @evaluate = EvaluatePlayer.select("count(*) as count, teams.short_name, teams.team_color").where(user_id: user_id).where("evaluate_point > 0").group("teams.short_name, teams.team_color").left_outer_joins(:player).left_outer_joins(:team)
-      @match = EvaluateMatch.order('evaluate_matches.updated_at DESC').select("matches.*, teams.*, users.id as user_id, users.user_name, users.uid, users.avatar, teams.short_name as home_team_name, away_teams_evaluate_matches.short_name as away_team_name").where(user_id: user_id).left_outer_joins(:match).left_outer_joins(:user).left_outer_joins(:home_team).left_outer_joins(:away_team).page(params[:page]).per(PER)
+      @match = EvaluateMatch.order('evaluate_matches.updated_at DESC').select("matches.*, teams.*, users.id as user_id, users.user_name, users.uid, users.avatar, teams.short_name as home_team_name, away_teams_evaluate_matches.short_name as away_team_name, evaluate_matches.updated_at as evaluate_date").where(user_id: user_id).left_outer_joins(:match).left_outer_joins(:user).left_outer_joins(:home_team).left_outer_joins(:away_team).page(params[:page]).per(PER)
       @like_count = []
       @evaluate_user = []
       @match.each do |match|
