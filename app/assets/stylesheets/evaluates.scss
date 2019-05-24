@@ -229,11 +229,38 @@
 }
 
 @media screen and (max-width: 750px) {
+    #match_title{
+    
+        h4{
+            margin: 5px 10px 0 10px;
+        }
+    }
+
     #overall {
         .overall-list {
             textarea{
                 width: 165px !important;
             }
         }
+    }
+
+    .edit-button-area {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+
+    #game_details_area{
+    
+      #game_progress, #game_details{
+          th {
+              width: 451px;
+          }
+      
+          .progress-item {
+              width: auto;
+          }
+      }
     }
 }

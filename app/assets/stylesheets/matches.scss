@@ -22,3 +22,12 @@ table {
         }
     }
 }
+
+@media screen and (max-width: 750px) {
+    table {
+        .home-team-name, .away-team-name {
+            width: 100px;
+        }
+    }
+
+}

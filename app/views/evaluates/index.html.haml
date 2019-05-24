@@ -38,8 +38,9 @@
             = @awayTeamInfo.short_name
 
   - if current_user.present? && current_user.uid == @user.uid
-    %a{:href => "/matches/#{@match.match_id}"}
-      %button.btn-border 編集
+    .edit-button-area
+      %a{:href => "/matches/#{@match.match_id}"}
+        %button.btn-border 編集
 
   .user_info_area
     .user_avatar-area
