@@ -4,7 +4,7 @@ class TopsController < ApplicationController
 
   def hello
 
-    @match = EvaluateMatch.select("matches.*, teams.team_name, users.id as user_id, users.user_name, users.uid, users.avatar, teams.short_name as home_team_name, away_teams_evaluate_matches.short_name as away_team_name, evaluate_matches.updated_at as evaluate_date").left_outer_joins(:match).left_outer_joins(:user).left_outer_joins(:home_team).left_outer_joins(:away_team).page(params[:page]).per(PER)
+    @match = EvaluateMatch.order('evaluate_matches.updated_at DESC').select("matches.*, teams.team_name, users.id as user_id, users.user_name, users.uid, users.avatar, teams.short_name as home_team_name, away_teams_evaluate_matches.short_name as away_team_name, evaluate_matches.updated_at as evaluate_date").left_outer_joins(:match).left_outer_joins(:user).left_outer_joins(:home_team).left_outer_joins(:away_team).page(params[:page]).per(PER)
     @like_count = []
     @user       = []
     @match.each do |match|
