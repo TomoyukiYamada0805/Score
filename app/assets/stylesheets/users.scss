@@ -60,6 +60,33 @@
   }
 }
 
+#new_user,#edit_user {
+    em {
+        font-size: 80%;
+        opacity: 0.7;
+    }
+
+    #error_explanation {
+        ul {
+            list-style: none;
+        }
+    }
+
+    .field {
+        margin-bottom: 20px;
+    }
+
+    .input_text {
+        width: 100%;
+    }
+
+    .actions {
+      padding-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+}
+
 @media screen and (max-width: 750px) {
     .user-information-analysis {
         .post-teams-analysis {

@@ -4,12 +4,12 @@
 
   <div class="field">
     <%= f.label :メールアドレス %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, :class => "input_text", autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
     <%= f.label :ユーザー名 %><br />
-    <%= f.text_field :user_name %>
+    <%= f.text_field :user_name, :class => "input_text" %>
     <br />
     <em>必須項目です</em>
   </div>
@@ -19,21 +19,21 @@
     <% if @minimum_password_length %>
     <em><%= @minimum_password_length %> 文字以上</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, :class => "input_text", autocomplete: "new-password" %>
   </div>
 
   <div class="field">
     <%= f.label :パスワード確認 %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, :class => "input_text", autocomplete: "new-password" %>
   </div>
 
-  <div class="actions">
+  <div class="field">
     <%= f.label :プロフィール画像 %><br />
 　   <%= f.file_field :avatar %>
   </div>
 
   <div class="actions">
-    <%= f.submit "ログイン" %>
+    <%= f.submit "ログイン", :class => "btn-border" %>
   </div>
 
   <br />
