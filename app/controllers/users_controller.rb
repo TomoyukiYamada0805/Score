@@ -12,7 +12,7 @@ class UsersController < ApplicationController
         @evaluate_user.push(User.where(uid: match.uid)[0])
         @like_count.push(Like.where(post_user_id: match[:user_id], match_id: match[:match_id]).size)
       end
-      @evaluate_ranking = EvaluatePlayer.select("AVG(evaluate_point) as point, evaluate_players.player_id, players.player_name, teams.short_name").where(user_id: user_id).where("evaluate_point > 0").left_outer_joins(:player).left_outer_joins(:team).group("evaluate_players.player_id, players.player_name, `evaluate_players`.`evaluate_point`, teams.short_name").order(evaluate_point: "DESC").limit(3)
+      @evaluate_ranking = EvaluatePlayer.select("AVG(evaluate_player.evaluate_point) as point, evaluate_players.player_id, players.player_name, teams.short_name").where(user_id: user_id).where("evaluate_point > 0").left_outer_joins(:player).left_outer_joins(:team).group("evaluate_players.player_id, players.player_name, `evaluate_players`.`evaluate_point`, teams.short_name").order(evaluate_point: "DESC").limit(3)
     end
 
     def like
