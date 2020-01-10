@@ -36,7 +36,6 @@ class UsersController < ApplicationController
     end
 
     def update
-      p user_params
       respond_to do |format|
         if @user.update_without_current_password(user_params)
           format.html { redirect_to @user, notice: 'User was successfully updated.' }
