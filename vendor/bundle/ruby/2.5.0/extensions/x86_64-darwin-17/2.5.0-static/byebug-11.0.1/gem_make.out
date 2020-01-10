@@ -1,0 +1,19 @@
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.5.0/gems/byebug-11.0.1/ext/byebug
+/Users/yamadatomoyuki/.rbenv/versions/2.5.0/bin/ruby -r ./siteconf20200110-56595-1i4gmvz.rb extconf.rb
+creating Makefile
+
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.5.0/gems/byebug-11.0.1/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.5.0/gems/byebug-11.0.1/ext/byebug
+make "DESTDIR="
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.5.0/gems/byebug-11.0.1/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.bundle ./.gem.20200110-56595-aj9vqf/byebug

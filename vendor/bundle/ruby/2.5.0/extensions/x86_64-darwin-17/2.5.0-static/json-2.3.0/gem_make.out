@@ -1,0 +1,13 @@
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.5.0/gems/json-2.3.0/ext/json
+/Users/yamadatomoyuki/.rbenv/versions/2.5.0/bin/ruby -r ./siteconf20200110-80325-1xdlv6l.rb extconf.rb
+creating Makefile
+
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.5.0/gems/json-2.3.0/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.5.0/gems/json-2.3.0/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.5.0/gems/json-2.3.0/ext/json
+make "DESTDIR=" install

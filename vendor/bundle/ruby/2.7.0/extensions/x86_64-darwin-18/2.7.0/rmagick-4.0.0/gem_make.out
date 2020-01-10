@@ -1,0 +1,110 @@
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.7.0/gems/rmagick-4.0.0/ext/RMagick
+/Users/yamadatomoyuki/.rbenv/versions/2.7.0/bin/ruby -I /Users/yamadatomoyuki/.rbenv/versions/2.7.0/lib/ruby/2.7.0 -r ./siteconf20200110-49353-gh5cwa.rb extconf.rb
+checking for brew... yes
+checking for /usr/bin/gcc... yes
+checking for pkg-config... yes
+
+Warning: Found more than one ImageMagick installation. This could cause problems at runtime.
+         /usr/local/opt/imagemagick@6/bin/Magick-config reports version 6.9.10 Q16 is installed in /usr/local/Cellar/imagemagick@6/6.9.10-66
+         /usr/local/bin/Magick-config reports version 6.9.10 Q16 is installed in /usr/local/Cellar/imagemagick@6/6.9.10-66
+Using 6.9.10 Q16 from /usr/local/Cellar/imagemagick@6/6.9.10-66.
+
+checking for outdated ImageMagick version (<= 6.7.7)... no
+checking for __GNUC__... yes
+checking for Ruby version >= 2.3.0... yes
+checking for magick/MagickCore.h... yes
+checking for GetImageChannelEntropy() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,sys/types.h,magick/MagickCore.h... yes
+checking for SetImageGray() in assert.h,ctype.h,stdio.h,stdlib.h,math.h,time.h,sys/types.h,magick/MagickCore.h... yes
+creating extconf.h
+creating Makefile
+
+
+======================================================================
+Fri 10 Jan 20 18:47:31
+This installation of RMagick 4.0.0 is configured for
+Ruby 2.7.0 (x86_64-darwin18) and ImageMagick 6.9.10
+======================================================================
+
+
+Configured compile options: {:magick_version=>"6.9.10", :local_libs=>" -L/usr/local/Cellar/imagemagick@6/6.9.10-66/lib -lMagickCore-6.Q16", :cflags=>" -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16 -I/usr/local/Cellar/imagemagick@6/6.9.10-66/include/ImageMagick-6 -std=gnu99", :cppflags=>" -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16 -I/usr/local/Cellar/imagemagick@6/6.9.10-66/include/ImageMagick-6", :ldflags=>" -L/usr/local/Cellar/imagemagick@6/6.9.10-66/lib -lMagickCore-6.Q16", :defs=>[], :config_h=>"Makefile rmagick.h"}
+
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.7.0/gems/rmagick-4.0.0/ext/RMagick
+make "DESTDIR=" clean
+
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.7.0/gems/rmagick-4.0.0/ext/RMagick
+make "DESTDIR="
+compiling rmagick.c
+compiling rmdraw.c
+compiling rmenum.c
+compiling rmfill.c
+compiling rmilist.c
+compiling rmimage.c
+rmimage.c:10577:43: warning: incompatible pointer types passing 'VALUE (VALUE)' (aka 'unsigned long (unsigned long)') to parameter of type 'VALUE (*)(VALUE, VALUE)' (aka 'unsigned long (*)(unsigned long, unsigned long)') [-Wincompatible-pointer-types]
+        file = rb_rescue(rb_String, file, file_arg_rescue, file);
+                                          ^~~~~~~~~~~~~~~
+/Users/yamadatomoyuki/.rbenv/versions/2.7.0/include/ruby-2.7.0/ruby/ruby.h:1987:46: note: passing argument to parameter here
+VALUE rb_rescue(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE,VALUE),VALUE);
+                                             ^
+rmimage.c:14622:39: warning: incompatible pointer types passing 'VALUE (VALUE)' (aka 'unsigned long (unsigned long)') to parameter of type 'VALUE (*)(VALUE, VALUE)' (aka 'unsigned long (*)(unsigned long, unsigned long)') [-Wincompatible-pointer-types]
+    file = rb_rescue(rb_String, file, file_arg_rescue, file);
+                                      ^~~~~~~~~~~~~~~
+/Users/yamadatomoyuki/.rbenv/versions/2.7.0/include/ruby-2.7.0/ruby/ruby.h:1987:46: note: passing argument to parameter here
+VALUE rb_rescue(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE,VALUE),VALUE);
+                                             ^
+rmimage.c:14874:21: warning: enumeration value 'StaticGravity' not handled in switch [-Wswitch]
+            switch (gravity)
+                    ^
+rmimage.c:14874:21: note: add missing switch cases
+            switch (gravity)
+                    ^
+3 warnings generated.
+compiling rminfo.c
+compiling rmkinfo.c
+compiling rmmain.c
+compiling rmmontage.c
+compiling rmpixel.c
+rmpixel.c:263:49: warning: incompatible pointer types passing 'VALUE (VALUE)' (aka 'unsigned long (unsigned long)') to parameter of type 'VALUE (*)(VALUE, VALUE)' (aka 'unsigned long (*)(unsigned long, unsigned long)') [-Wincompatible-pointer-types]
+        color = rb_rescue(rb_str_to_str, color, color_arg_rescue, color);
+                                                ^~~~~~~~~~~~~~~~
+/Users/yamadatomoyuki/.rbenv/versions/2.7.0/include/ruby-2.7.0/ruby/ruby.h:1987:46: note: passing argument to parameter here
+VALUE rb_rescue(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE,VALUE),VALUE);
+                                             ^
+1 warning generated.
+compiling rmstruct.c
+compiling rmutil.c
+rmutil.c:408:45: warning: incompatible pointer types passing 'VALUE (VALUE)' (aka 'unsigned long (unsigned long)') to parameter of type 'VALUE (*)(VALUE, VALUE)' (aka 'unsigned long (*)(unsigned long, unsigned long)') [-Wincompatible-pointer-types]
+        arg = rb_rescue(rb_str_to_str, arg, rescue_not_str, arg);
+                                            ^~~~~~~~~~~~~~
+/Users/yamadatomoyuki/.rbenv/versions/2.7.0/include/ruby-2.7.0/ruby/ruby.h:1987:46: note: passing argument to parameter here
+VALUE rb_rescue(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE,VALUE),VALUE);
+                                             ^
+rmutil.c:489:50: warning: incompatible pointer types passing 'VALUE (VALUE)' (aka 'unsigned long (unsigned long)') to parameter of type 'VALUE (*)(VALUE, VALUE)' (aka 'unsigned long (*)(unsigned long, unsigned long)') [-Wincompatible-pointer-types]
+    return FIX2INT(rb_rescue(check_num2dbl, obj, rescue_not_dbl, (VALUE)0));
+                                                 ^~~~~~~~~~~~~~
+/Users/yamadatomoyuki/.rbenv/versions/2.7.0/include/ruby-2.7.0/ruby/ruby.h:717:32: note: expanded from macro 'FIX2INT'
+#define FIX2INT(x)  RB_FIX2INT(x)
+                               ^
+/Users/yamadatomoyuki/.rbenv/versions/2.7.0/include/ruby-2.7.0/ruby/ruby.h:693:48: note: expanded from macro 'RB_FIX2INT'
+#define RB_FIX2INT(x) ((int)rb_fix2int((VALUE)(x)))
+                                               ^
+/Users/yamadatomoyuki/.rbenv/versions/2.7.0/include/ruby-2.7.0/ruby/ruby.h:1987:46: note: passing argument to parameter here
+VALUE rb_rescue(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE,VALUE),VALUE);
+                                             ^
+rmutil.c:507:41: warning: incompatible pointer types passing 'VALUE (VALUE)' (aka 'unsigned long (unsigned long)') to parameter of type 'VALUE (*)(VALUE, VALUE)' (aka 'unsigned long (*)(unsigned long, unsigned long)') [-Wincompatible-pointer-types]
+    str = rb_rescue(rb_str_to_str, str, rescue_not_str, str);
+                                        ^~~~~~~~~~~~~~
+/Users/yamadatomoyuki/.rbenv/versions/2.7.0/include/ruby-2.7.0/ruby/ruby.h:1987:46: note: passing argument to parameter here
+VALUE rb_rescue(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE,VALUE),VALUE);
+                                             ^
+rmutil.c:553:55: warning: incompatible pointer types passing 'VALUE (VALUE)' (aka 'unsigned long (unsigned long)') to parameter of type 'VALUE (*)(VALUE, VALUE)' (aka 'unsigned long (*)(unsigned long, unsigned long)') [-Wincompatible-pointer-types]
+        fuzz_arg = rb_rescue(rb_str_to_str, fuzz_arg, rescue_not_str, fuzz_arg);
+                                                      ^~~~~~~~~~~~~~
+/Users/yamadatomoyuki/.rbenv/versions/2.7.0/include/ruby-2.7.0/ruby/ruby.h:1987:46: note: passing argument to parameter here
+VALUE rb_rescue(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE,VALUE),VALUE);
+                                             ^
+4 warnings generated.
+linking shared-object RMagick2.bundle
+
+current directory: /Users/yamadatomoyuki/railsapp/score/vendor/bundle/ruby/2.7.0/gems/rmagick-4.0.0/ext/RMagick
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 RMagick2.bundle ./.gem.20200110-49353-1g0frfy
