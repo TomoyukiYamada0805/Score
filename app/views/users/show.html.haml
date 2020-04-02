@@ -49,7 +49,7 @@
           .post-title J1 第#{match.section}節 #{match.home_team_name} vs #{match.away_team_name}
           .post-info 
             %span by #{match.user_name}
-            %span #{match.evaluate_date.to_s(:time_format)}
+            %span #{match.updated_at.to_s(:time_format)}
             %span
               %i.far.fa-heart
               #{like}
