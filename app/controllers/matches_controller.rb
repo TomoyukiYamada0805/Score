@@ -8,7 +8,7 @@ class MatchesController < ApplicationController
         @nextSection     = @section.to_i + 1 if @section.to_i + 1 <= @latestSection
         @previousSection = @section.to_i - 1 if @section.to_i - 1 >= 1
 
-        @match = Match.select("matches.*, teams.short_name as home_team_name ,away_teams_matches.short_name as away_team_name").where(section: @section).left_outer_joins(:home_team).left_outer_joins(:away_team).order('matches.id')
+        @match = Match.get_match_list(@section)
     end
 
     def show

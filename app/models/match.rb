@@ -9,4 +9,5 @@ class Match < ApplicationRecord
     has_many :user, through: :evaluate_match
     has_many :like, primary_key: :match_id, foreign_key: :match_id
 
+    scope :get_match_list, -> (section){select("matches.*, teams.short_name as home_team_name ,away_teams_matches.short_name as away_team_name").where(section: section).left_outer_joins(:home_team).left_outer_joins(:away_team).order('matches.id')}
 end

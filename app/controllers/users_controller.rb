@@ -4,14 +4,7 @@ class UsersController < ApplicationController
 
     def show
       get_match_list(model_name: "evaluate_match")
-      @evaluate_ranking = EvaluatePlayer.select("AVG(evaluate_players.evaluate_point) as point, evaluate_players.player_id, players.player_name, teams.short_name")
-                                        .where(user_id: @user.id)
-                                        .where("evaluate_point > 0")
-                                        .left_outer_joins(:player)
-                                        .left_outer_joins(:team)
-                                        .group("evaluate_players.player_id, players.player_name, `evaluate_players`.`evaluate_point`, teams.short_name")
-                                        .order(evaluate_point: "DESC")
-                                        .limit(3)
+      @evaluate_ranking = EvaluatePlayer.get_evaluate_ranking(@user)
     end
 
     def like
