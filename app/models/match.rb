@@ -9,5 +9,4 @@ class Match < ApplicationRecord
     has_many :user, through: :evaluate_match
     has_many :like, primary_key: :match_id, foreign_key: :match_id
 
-    #has_many :player, through: :match_player
 end

@@ -99,7 +99,7 @@
             = player.player_change
           %span.player-score 
             = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(player[:evaluate_point]), :include_blank => true
-            = f.hidden_field "evaluate[][player_id]", :value => "#{player[:player_id]}"
+            = f.hidden_field "evaluate[][player_id]", :value => "#{player[:players_player_id]}"
     
   .away-member-list.member-list-style
     %ul 
@@ -115,7 +115,7 @@
             = player.player_change
           %span.player-score
             = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(player[:evaluate_point]), :include_blank => true
-            = f.hidden_field "evaluate[][player_id]", :value => "#{player.player_id}"
+            = f.hidden_field "evaluate[][player_id]", :value => "#{player[:players_player_id]}"
 .list-title 
   %span.list-title-style 控えメンバー
 
@@ -135,7 +135,7 @@
           - if player.player_change.present?
             %span.player-score
               = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(player[:evaluate_point]), :include_blank => true
-              = f.hidden_field "evaluate[][player_id]", :value => "#{player.player_id}"
+              = f.hidden_field "evaluate[][player_id]", :value => "#{player[:players_player_id]}"
     
   .away-member-list.member-list-style
     %ul 
@@ -152,7 +152,7 @@
           - if player.player_change.present?
             %span.player-score
               = f.select "evaluate[][point]", select_point, :selected => selected_evaluate_point(player[:evaluate_point]), :include_blank => true
-              = f.hidden_field "evaluate[][player_id]", :value => "#{player.player_id}"
+              = f.hidden_field "evaluate[][player_id]", :value => "#{player[:players_player_id]}"
       
 .list-title 
   %span.list-title-style 審判

@@ -1,5 +1,5 @@
 #main
-  - @match.zip(@like_count, @user).each do |match, like, user|
+  - @match.zip(@like_count, @evaluate_user).each do |match, like, user|
     .post-info-box
       %a{:href => "/users/#{match.uid}"}
         %img.user-profile-image{:src => "#{user.present? && user.avatar.present? ? user.avatar : "/assets/icon.jpg"}"}/

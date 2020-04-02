@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
   resources :matches, :only => [:list, :show, :create, :update]
   get "/about" => "welcomes#index"
-  get "/matches/:match_id/evaluate/:user_id" => "evaluates#index"
+  get "/matches/:id/evaluate/:user_id" => "evaluates#index"
   get "/match_list/:year/:section" => "matches#list"
   get "/user/info/edit" => "users#edit"
   put "/user/info/edit" => "users#update"
